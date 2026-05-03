@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Jan's 90-Day Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --w:#fff;--bg:#f5f5f5;--bd:#e8e8e8;--bd2:#d5d5d5;
+  --tx:#111;--mt:#999;--md:#555;
+  --r:#e63020;--rs:#fff2f0;--rm:#ffd9d4;
+  --g:#18a058;--gs:#edfaf3;
+  --b:#1a56db;--bs:#eff4ff;
+  --o:#d97706;--os:#fffbeb;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);
+  --shm:0 6px 24px rgba(0,0,0,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--tx);font-family:'Archivo',sans-serif;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:90px;}
+.page{display:none;}.page.active{display:block;animation:fi .15s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--w);border-top:1px solid var(--bd);display:grid;grid-template-columns:repeat(6,1fr);z-index:300;padding-bottom:env(safe-area-inset-bottom,10px);box-shadow:0 -2px 16px rgba(0,0,0,.06);}
+.nb{display:flex;flex-direction:column;align-items:center;padding:9px 2px 7px;gap:2px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.5px;text-transform:uppercase;color:var(--mt);cursor:pointer;border:none;background:none;}
+.ni{font-size:18px;line-height:1;}
+.nb.active{color:var(--r);}
+
+/* UTILS */
+.lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mt);}
+.card{background:var(--w);border-radius:16px;box-shadow:var(--sh);padding:18px;}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-family:'Archivo Black',sans-serif;font-size:15px;cursor:pointer;transition:all .15s;}
+.btn-r{background:var(--r);color:#fff;}.btn-r:active{transform:scale(.98);}
+.btn-g{background:var(--g);color:#fff;}
+.btn-o{background:transparent;border:1.5px solid var(--bd2);color:var(--tx);}
+.inp{width:100%;padding:11px 14px;border:1.5px solid var(--bd2);border-radius:10px;font-family:'Archivo',sans-serif;font-size:14px;color:var(--tx);background:var(--w);outline:none;transition:border-color .15s;}
+.inp:focus{border-color:var(--r);}
+.inp::placeholder{color:var(--mt);}
+select.inp{appearance:none;}
+.pill{display:inline-block;padding:3px 9px;border-radius:100px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.8px;text-transform:uppercase;}
+.sec{padding:16px 20px;}
+
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:400;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px);}
+.overlay.open{display:flex;}
+.modal{background:var(--w);width:100%;max-width:430px;max-height:90vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:20px 20px 44px;}
+.mdrag{width:36px;height:4px;background:var(--bd2);border-radius:2px;margin:0 auto 18px;}
+.mt2{font-family:'Archivo Black',sans-serif;font-size:22px;margin-bottom:4px;}
+.ms{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--r);text-transform:uppercase;margin-bottom:14px;}
+
+/* ═══ HOME ═══ */
+.home-hero{background:var(--w);padding:22px 20px 0;}
+.hgreet{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.15;margin-bottom:3px;}
+.hgreet span{color:var(--r);}
+.hdate{font-size:12px;color:var(--mt);margin-bottom:18px;}
+.qcard{background:var(--r);border-radius:18px;padding:18px 20px;margin-bottom:20px;position:relative;overflow:hidden;}
+.qcard::before{content:'"';position:absolute;top:-14px;right:8px;font-family:'Archivo Black',sans-serif;font-size:110px;color:rgba(255,255,255,.08);line-height:1;}
+.qlbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:8px;}
+.qtext{font-size:14px;font-weight:600;color:#fff;line-height:1.65;font-style:italic;}
+.qfrom{font-size:10px;color:rgba(255,255,255,.45);margin-top:10px;font-family:'Space Mono',monospace;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px;margin-bottom:14px;}
+.scard{background:var(--w);border-radius:14px;box-shadow:var(--sh);padding:14px 10px;text-align:center;}
+.snum{font-family:'Archivo Black',sans-serif;font-size:32px;color:var(--r);line-height:1;margin-bottom:2px;}
+.slbl{font-size:9px;color:var(--mt);font-family:'Space Mono',monospace;}
+.wkcard{margin:0 20px 14px;background:var(--w);border-radius:16px;box-shadow:var(--sh);padding:16px;}
+.wdots{display:flex;gap:5px;margin:10px 0 5px;}
+.wd{flex:1;height:6px;border-radius:3px;background:var(--bd);}
+.wd.done{background:var(--g);}.wd.today{background:var(--r);}.wd.rest{background:var(--bd2);}
+.wdlbs{display:flex;gap:5px;}
+.wdlb{flex:1;text-align:center;font-size:8px;color:var(--mt);font-family:'Space Mono',monospace;}
+.tsnap{margin:0 20px 14px;border-radius:16px;overflow:hidden;box-shadow:var(--sh);}
+.ts-top{background:#111;padding:16px 18px;}
+.tslbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px;}
+.tsname{font-family:'Archivo Black',sans-serif;font-size:22px;color:#fff;margin-bottom:2px;}
+.tssub{font-size:11px;color:rgba(255,255,255,.4);}
+.tsbody{background:var(--w);padding:14px 18px;}
+.tsex{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd);font-size:13px;}
+.tsex:last-child{border-bottom:none;}
+.tsex span{font-family:'Space Mono',monospace;font-size:10px;color:var(--r);}
+.mhome{margin:0 20px 20px;background:var(--w);border-radius:16px;box-shadow:var(--sh);padding:16px;}
+.mr{margin-bottom:10px;}.mr:last-child{margin-bottom:0;}
+.mr-top{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;}
+.mr-top span:last-child{font-weight:400;color:var(--mt);font-family:'Space Mono',monospace;font-size:10px;}
+.mr-track{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;}
+.mr-fill{height:100%;border-radius:3px;transition:width .4s;}
+.mfc{background:var(--r);}.mfp{background:var(--b);}.mfcb{background:var(--o);}.mff{background:var(--g);}
+
+/* ═══ SCHEDULE ═══ */
+.sched-top{background:var(--w);padding:20px 20px 0;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--bd);}
+.sched-top h2{font-family:'Archivo Black',sans-serif;font-size:28px;margin-bottom:14px;}
+.wscw{overflow-x:auto;padding-bottom:14px;scrollbar-width:none;}
+.wscw::-webkit-scrollbar{display:none;}
+.wsc{display:flex;gap:7px;padding:0 20px;width:max-content;}
+.wchip{padding:7px 14px;border-radius:100px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;white-space:nowrap;cursor:pointer;border:1.5px solid var(--bd2);background:var(--w);color:var(--md);transition:all .15s;}
+.wchip.active{background:var(--r);border-color:var(--r);color:#fff;}
+.wchip.cur{border-color:var(--r);color:var(--r);}
+.pbar{padding:10px 20px;background:var(--rs);display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--rm);}
+.pbar span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--r);text-transform:uppercase;}
+.dcard{background:var(--w);border-radius:16px;box-shadow:var(--sh);margin-bottom:10px;overflow:hidden;cursor:pointer;}
+.dc-top{display:flex;align-items:center;gap:12px;padding:15px 16px;}
+.dc-num{font-family:'Archivo Black',sans-serif;font-size:34px;color:var(--bd2);line-height:1;width:40px;flex-shrink:0;}
+.dc-mid{flex:1;}
+.dc-name{font-family:'Archivo Black',sans-serif;font-size:15px;margin-bottom:2px;}
+.dc-sub{font-size:11px;color:var(--mt);}
+.dc-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.dc-arr{color:var(--bd2);font-size:18px;}
+.dc-today{background:var(--r);color:#fff;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:3px 8px;border-radius:100px;}
+.dc-body{display:none;border-top:1px solid var(--bd);padding:12px 16px 16px;}
+.dc-body.open{display:block;}
+.dc-ex{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bd);gap:10px;font-size:13px;}
+.dc-ex:last-child{border-bottom:none;}
+.dc-ex-name{flex:1;font-weight:500;}
+.dc-ex-sets{font-family:'Space Mono',monospace;font-size:10px;color:var(--r);flex-shrink:0;}
+.dc-note{font-size:11px;color:var(--mt);line-height:1.55;padding:3px 0 9px;border-bottom:1px solid var(--bd);}
+.run-box{background:var(--bs);border-radius:10px;padding:14px;margin-bottom:12px;border-left:3px solid var(--b);}
+.run-box-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--b);text-transform:uppercase;margin-bottom:6px;}
+.run-box-txt{font-size:13px;color:var(--md);line-height:1.75;}
+.focus-box{background:var(--bs);border-radius:8px;padding:10px 12px;margin-bottom:12px;border-left:3px solid var(--b);}
+.focus-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--b);text-transform:uppercase;margin-bottom:4px;}
+.focus-txt{font-size:12px;color:var(--md);line-height:1.5;}
+
+/* ═══ TODAY ═══ */
+.today-hero{background:#111;padding:22px 20px 18px;}
+.th-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.th-name{font-family:'Archivo Black',sans-serif;font-size:34px;color:#fff;line-height:1;}
+.th-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;}
+.th-badge{background:var(--r);color:#fff;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:100px;white-space:nowrap;}
+.prog-row{display:flex;align-items:center;gap:10px;}
+.prog-lbl{font-size:12px;color:rgba(255,255,255,.45);}
+.prog-bar{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--r);border-radius:2px;transition:width .4s;}
+.prog-pct{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);}
+.tex-list{padding:14px 20px;}
+.tex{background:var(--w);border-radius:14px;box-shadow:var(--sh);display:flex;align-items:center;gap:12px;padding:13px 15px;margin-bottom:8px;cursor:pointer;}
+.tex.chk{background:var(--gs);box-shadow:none;border:1.5px solid #b8f0d4;}
+.tex-circle{width:24px;height:24px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s;}
+.tex.chk .tex-circle{background:var(--g);border-color:var(--g);color:#fff;}
+.tex.chk .tex-nm{text-decoration:line-through;color:var(--mt);}
+.tex-nm{flex:1;font-size:14px;font-weight:500;}
+.tex-sets{font-family:'Space Mono',monospace;font-size:10px;color:var(--r);flex-shrink:0;}
+.tex-note{font-size:11px;color:var(--mt);padding:0 15px 10px 51px;margin-top:-6px;line-height:1.5;}
+.run-detail-today{background:var(--bs);border-radius:14px;padding:16px;margin:0 20px 14px;border-left:3px solid var(--b);}
+.rdt-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--b);text-transform:uppercase;margin-bottom:8px;}
+.rdt-txt{font-size:14px;color:var(--md);line-height:1.75;}
+
+/* ═══ FOOD ═══ */
+.rings{background:var(--w);display:flex;justify-content:space-around;padding:18px;border-bottom:1px solid var(--bd);}
+.ri{text-align:center;}
+.rw{width:70px;height:70px;position:relative;margin:0 auto 5px;}
+.rs-svg{transform:rotate(-90deg);}
+.rb{fill:none;stroke:var(--bd);stroke-width:5;}
+.rf{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dasharray .4s;}
+.rc{stroke:var(--r);}.rp{stroke:var(--b);}.rcb{stroke:var(--o);}.rft{stroke:var(--g);}
+.rctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.rv{font-family:'Archivo Black',sans-serif;font-size:14px;line-height:1;}
+.rl{font-size:7px;color:var(--mt);font-family:'Space Mono',monospace;}
+.rg{font-size:10px;color:var(--mt);margin-top:2px;}
+.food-entry{background:var(--w);border-radius:12px;box-shadow:var(--sh);padding:13px 15px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.fe-l h4{font-size:14px;font-weight:600;margin-bottom:4px;}
+.fe-chips{display:flex;gap:4px;flex-wrap:wrap;}
+.fe-chip{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:100px;}
+.fe-cal{font-family:'Archivo Black',sans-serif;font-size:22px;color:var(--r);}
+.fe-del{background:none;border:none;color:var(--mt);font-size:15px;cursor:pointer;padding:4px;margin-left:5px;}
+.qi{background:var(--w);border-radius:12px;box-shadow:var(--sh);padding:13px 15px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.qadd{width:28px;height:28px;border-radius:50%;background:var(--rs);color:var(--r);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+
+/* ═══ RECIPES ═══ */
+.rcats{display:flex;gap:7px;padding:14px 20px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--bd);background:var(--w);}
+.rcats::-webkit-scrollbar{display:none;}
+.rcat{padding:7px 14px;border-radius:100px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;white-space:nowrap;cursor:pointer;border:1.5px solid var(--bd2);background:var(--w);color:var(--md);transition:all .15s;}
+.rcat.active{background:var(--r);border-color:var(--r);color:#fff;}
+.rgrid{padding:16px 20px;display:grid;gap:12px;}
+.rcard{background:var(--w);border-radius:18px;box-shadow:var(--sh);overflow:hidden;cursor:pointer;}
+.rcard-img{width:100%;height:110px;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--bg),var(--bd));}
+.rcard-body{padding:14px;}
+.rcard-name{font-family:'Archivo Black',sans-serif;font-size:16px;margin-bottom:5px;}
+.rcard-macros{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
+.rcard-macro{font-family:'Space Mono',monospace;font-size:8px;padding:3px 7px;border-radius:100px;}
+.rcard-desc{font-size:12px;color:var(--mt);line-height:1.5;}
+.week-badge{background:var(--r);color:#fff;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 7px;border-radius:100px;display:inline-block;margin-bottom:6px;}
+.ing-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13px;}
+.ing-item:last-child{border-bottom:none;}
+.ing-dot{width:6px;height:6px;border-radius:50%;background:var(--r);flex-shrink:0;margin-top:5px;}
+.step-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);}
+.step-item:last-child{border-bottom:none;}
+.step-num{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--r);line-height:1;flex-shrink:0;width:24px;}
+.step-txt{font-size:13px;color:var(--md);line-height:1.65;}
+.rtip{background:var(--os);border-radius:12px;padding:13px 14px;margin-top:12px;border-left:3px solid var(--o);}
+.rtip p{font-size:12px;color:var(--o);line-height:1.65;}
+.rsec-title{font-family:'Archivo Black',sans-serif;font-size:15px;margin:16px 0 8px;}
+
+/* ═══ STRETCH ═══ */
+.stabs{display:grid;grid-template-columns:1fr 1fr;background:var(--w);border-bottom:1px solid var(--bd);}
+.stab{padding:13px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mt);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;}
+.stab.active{color:var(--r);border-bottom-color:var(--r);}
+.spanel{display:none;padding:16px 20px;}.spanel.active{display:block;}
+.scard{background:var(--w);border-radius:16px;box-shadow:var(--sh);margin-bottom:12px;overflow:hidden;}
+.semoji{width:100%;height:100px;background:linear-gradient(135deg,var(--bg),var(--bd));display:flex;align-items:center;justify-content:center;font-size:48px;}
+.sbody{padding:15px;}
+.sname{font-family:'Archivo Black',sans-serif;font-size:15px;margin-bottom:3px;}
+.stgt{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--r);text-transform:uppercase;margin-bottom:8px;}
+.show{font-size:13px;color:var(--md);line-height:1.7;margin-bottom:8px;}
+.sdur{display:inline-block;padding:4px 11px;border-radius:100px;background:var(--rs);color:var(--r);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;margin-bottom:6px;}
+.stip{padding:9px 12px;border-radius:8px;background:var(--os);border-left:3px solid var(--o);font-size:12px;color:var(--o);line-height:1.6;margin-top:7px;}
+
+/* ═══ PROGRESS ═══ */
+.pstats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 20px;}
+.pstat{background:var(--w);border-radius:14px;box-shadow:var(--sh);padding:15px;}
+.pstat-l{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mt);margin-bottom:6px;}
+.pstat-v{font-family:'Archivo Black',sans-serif;font-size:34px;color:var(--r);line-height:1;}
+.pstat-s{font-size:11px;color:var(--mt);margin-top:3px;}
+.cbars{height:80px;display:flex;align-items:flex-end;gap:4px;}
+.cbar{flex:1;background:var(--rs);border-radius:4px 4px 0 0;border-top:2.5px solid var(--r);min-height:4px;position:relative;cursor:pointer;}
+.cbar:hover::after{content:attr(data-v) ' lbs';position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:var(--tx);color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;white-space:nowrap;}
+.re{background:var(--bg);border-radius:10px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.re-v{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--r);}
+.pr-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--bd);}
+.pr-item:last-child{border-bottom:none;}
+.pri-n{font-size:13px;font-weight:600;}
+.pri-s{font-size:10px;color:var(--mt);font-family:'Space Mono',monospace;}
+.pri-v{font-family:'Archivo Black',sans-serif;font-size:26px;color:var(--r);}
+</style>
+</head>
+<body>
+
+<nav class="bnav">
+  <button class="nb active" onclick="nav('home',this)"><span class="ni">🏠</span>Home</button>
+  <button class="nb" onclick="nav('schedule',this)"><span class="ni">📅</span>Schedule</button>
+  <button class="nb" onclick="nav('today',this)"><span class="ni">💪</span>Today</button>
+  <button class="nb" onclick="nav('food',this)"><span class="ni">🥗</span>Food</button>
+  <button class="nb" onclick="nav('recipes',this)"><span class="ni">👨‍🍳</span>Recipes</button>
+  <button class="nb" onclick="nav('progress',this)"><span class="ni">📈</span>Progress</button>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="hgreet" id="h-greet">Loading...<br><span>Jan.</span></div>
+    <div class="hdate" id="h-date"></div>
+    <div class="qcard"><div class="qlbl">Today's message for Jan</div><div class="qtext" id="h-quote"></div><div class="qfrom">— Your 90-Day Program</div></div>
+  </div>
+  <div class="stats-row">
+    <div class="scard"><div class="snum" id="h-done">0</div><div class="slbl">Days Done</div></div>
+    <div class="scard"><div class="snum" id="h-left">90</div><div class="slbl">Days Left</div></div>
+    <div class="scard"><div class="snum" id="h-phase">1</div><div class="slbl">Phase</div></div>
+  </div>
+  <div class="wkcard">
+    <div class="lbl">This Week</div>
+    <div class="wdots" id="h-dots"></div>
+    <div class="wdlbs"><div class="wdlb">M</div><div class="wdlb">T</div><div class="wdlb">W</div><div class="wdlb">T</div><div class="wdlb">F</div><div class="wdlb">S</div><div class="wdlb">S</div></div>
+  </div>
+  <div style="padding:0 20px 6px;" class="lbl">Today</div>
+  <div class="tsnap">
+    <div class="ts-top"><div class="tslbl" id="h-dtype"></div><div class="tsname" id="h-dname"></div><div class="tssub" id="h-dsub"></div></div>
+    <div class="tsbody" id="h-dexs"></div>
+  </div>
+  <div style="padding:0 20px 6px;margin-top:14px;" class="lbl">Macros Today</div>
+  <div class="mhome" id="h-macros"></div>
+  <div style="height:16px;"></div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="page-schedule" class="page">
+  <div class="sched-top"><h2>Schedule</h2><div class="wscw"><div class="wsc" id="wchips"></div></div></div>
+  <div class="pbar" id="pbar"></div>
+  <div class="sec" id="sched-days"></div>
+</div>
+
+<!-- TODAY -->
+<div id="page-today" class="page">
+  <div class="today-hero">
+    <div class="th-top">
+      <div><div class="th-name" id="t-name">—</div><div class="th-sub" id="t-sub">—</div></div>
+      <span class="th-badge" id="t-badge">Phase 1</span>
+    </div>
+    <div class="prog-row">
+      <div class="prog-lbl" id="t-plbl">Day 1</div>
+      <div class="prog-bar"><div class="prog-fill" id="t-pfill" style="width:0%"></div></div>
+      <div class="prog-pct" id="t-ppct">0%</div>
+    </div>
+  </div>
+  <div class="tex-list" id="t-exlist"></div>
+  <div class="run-detail-today" id="t-rundetail" style="display:none"><div class="rdt-lbl">📋 Run Instructions</div><div class="rdt-txt" id="t-runtext"></div></div>
+  <div style="padding:0 20px 14px;"><button class="btn btn-r" id="t-cbtn" onclick="completeToday()">MARK DAY COMPLETE</button></div>
+  <div style="margin:0 20px 20px;background:var(--os);border-radius:14px;padding:14px 16px;border-left:3px solid var(--o);">
+    <p style="font-size:12px;color:var(--o);line-height:1.8;">💧 Drink water right after · 🥩 Hit protein within 1 hr · 🧘 5 min stretch · 😴 8 hrs sleep</p>
+  </div>
+</div>
+
+<!-- FOOD -->
+<div id="page-food" class="page">
+  <div style="padding:20px 20px 0;background:var(--w);border-bottom:1px solid var(--bd);"><div class="lbl" id="f-datelbl" style="margin-bottom:4px;">Today</div><div style="font-family:'Archivo Black',sans-serif;font-size:28px;margin-bottom:16px;">Food Log</div></div>
+  <div class="rings">
+    <div class="ri"><div class="rw"><svg class="rs-svg" width="70" height="70" viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf rc" cx="35" cy="35" r="30" id="rc-c" stroke-dasharray="0 188.5"/></svg><div class="rctr"><div class="rv" id="rv-c" style="color:var(--r);">0</div><div class="rl">cal</div></div></div><div class="rg">/ 2300</div></div>
+    <div class="ri"><div class="rw"><svg class="rs-svg" width="70" height="70" viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf rp" cx="35" cy="35" r="30" id="rc-p" stroke-dasharray="0 188.5"/></svg><div class="rctr"><div class="rv" id="rv-p" style="color:var(--b);">0g</div><div class="rl">protein</div></div></div><div class="rg">/ 155g</div></div>
+    <div class="ri"><div class="rw"><svg class="rs-svg" width="70" height="70" viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf rcb" cx="35" cy="35" r="30" id="rc-cb" stroke-dasharray="0 188.5"/></svg><div class="rctr"><div class="rv" id="rv-cb" style="color:var(--o);">0g</div><div class="rl">carbs</div></div></div><div class="rg">/ 220g</div></div>
+    <div class="ri"><div class="rw"><svg class="rs-svg" width="70" height="70" viewBox="0 0 70 70"><circle class="rb" cx="35" cy="35" r="30"/><circle class="rf rft" cx="35" cy="35" r="30" id="rc-f" stroke-dasharray="0 188.5"/></svg><div class="rctr"><div class="rv" id="rv-f" style="color:var(--g);">0g</div><div class="rl">fat</div></div></div><div class="rg">/ 70g</div></div>
+  </div>
+  <div class="sec">
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:'Archivo Black',sans-serif;font-size:16px;margin-bottom:12px;">Add Food</div>
+      <input class="inp" id="f-name" placeholder="Food name" style="margin-bottom:8px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <input class="inp" type="number" id="f-cal" placeholder="Calories">
+        <input class="inp" type="number" id="f-pro" placeholder="Protein (g)">
+        <input class="inp" type="number" id="f-carb" placeholder="Carbs (g)">
+        <input class="inp" type="number" id="f-fat" placeholder="Fat (g)">
+      </div>
+      <button class="btn btn-r" onclick="addFood()" style="font-size:14px;padding:13px;">ADD TO LOG</button>
+    </div>
+    <div class="lbl" style="margin-bottom:10px;">Today's Log</div>
+    <div id="food-log"></div>
+  </div>
+  <div class="sec" style="padding-top:0;"><div class="lbl" style="margin-bottom:10px;">Quick Add — High Protein</div><div id="quick-list"></div></div>
+</div>
+
+<!-- RECIPES -->
+<div id="page-recipes" class="page">
+  <div style="padding:20px 20px 0;background:var(--w);border-bottom:1px solid var(--bd);">
+    <div class="lbl" style="margin-bottom:4px;">Week <span id="recipe-week-num">1</span> Rotation</div>
+    <div style="font-family:'Archivo Black',sans-serif;font-size:28px;margin-bottom:4px;">Recipes</div>
+    <div style="font-size:12px;color:var(--mt);margin-bottom:16px;">Rotates every week · All high protein · Jan-approved</div>
+  </div>
+  <div class="rcats" id="rcats"></div>
+  <div class="rgrid" id="rgrid"></div>
+</div>
+
+<!-- PROGRESS -->
+<div id="page-progress" class="page">
+  <div style="padding:20px 20px 0;background:var(--w);border-bottom:1px solid var(--bd);"><div class="lbl" style="margin-bottom:4px;">90-Day Journey</div><div style="font-family:'Archivo Black',sans-serif;font-size:28px;margin-bottom:16px;">Progress</div></div>
+  <div class="pstats">
+    <div class="pstat"><div class="pstat-l">Sessions</div><div class="pstat-v" id="ps-tot">0</div><div class="pstat-s">completed</div></div>
+    <div class="pstat"><div class="pstat-l">This Week</div><div class="pstat-v" id="ps-wk">0</div><div class="pstat-s">of 6 days</div></div>
+    <div class="pstat"><div class="pstat-l">Start Weight</div><div class="pstat-v" id="ps-sw">—</div><div class="pstat-s">lbs</div></div>
+    <div class="pstat"><div class="pstat-l">Lost</div><div class="pstat-v" id="ps-lost">—</div><div class="pstat-s">lbs</div></div>
+  </div>
+  <div class="sec">
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:'Archivo Black',sans-serif;font-size:16px;margin-bottom:12px;">Weight Log</div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px;">
+        <input class="inp" type="number" id="w-inp" placeholder="Weight (lbs)">
+        <button class="btn btn-r" style="width:auto;padding:11px 16px;font-size:13px;" onclick="logWeight()">LOG</button>
+      </div>
+      <div class="cbars" id="wchart"></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0;">
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:'Archivo Black',sans-serif;font-size:16px;margin-bottom:12px;">Log Run</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <input class="inp" type="number" id="r-mi" placeholder="Miles">
+        <input class="inp" type="number" id="r-mn" placeholder="Minutes">
+      </div>
+      <select class="inp" id="r-tp" style="margin-bottom:8px;"><option>Easy Run</option><option>Tempo Run</option><option>Hill Sprints</option><option>Pyramid Intervals</option><option>Incline Walk</option></select>
+      <button class="btn btn-r" style="font-size:13px;padding:13px;" onclick="logRun()">LOG RUN</button>
+      <div id="rlog"></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0;">
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-family:'Archivo Black',sans-serif;font-size:16px;margin-bottom:12px;">Personal Records</div>
+      <div id="pr-disp"></div>
+      <button class="btn btn-o" style="margin-top:12px;font-size:13px;padding:13px;" onclick="openPRModal()">UPDATE A PR</button>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:0;"><button class="btn btn-o" onclick="nav('stretch',this)" style="font-size:13px;padding:13px;">🧘 STRETCH ROUTINE</button></div>
+</div>
+
+<!-- STRETCH -->
+<div id="page-stretch" class="page">
+  <div style="padding:20px 20px 0;background:var(--w);border-bottom:1px solid var(--bd);"><div class="lbl" style="margin-bottom:4px;">Daily Mobility</div><div style="font-family:'Archivo Black',sans-serif;font-size:28px;margin-bottom:16px;">Stretch</div></div>
+  <div style="padding:11px 20px;background:var(--os);border-bottom:1px solid #fce5b0;"><p style="font-size:12px;color:var(--o);line-height:1.6;">⭐ Lower body daily — tight hips + lower back. Upper body after push/pull. Even 5 min matters.</p></div>
+  <div class="stabs"><button class="stab active" onclick="switchS('lower',this)">Lower Body</button><button class="stab" onclick="switchS('upper',this)">Upper Body</button></div>
+  <div class="spanel active" id="sp-lower"></div>
+  <div class="spanel" id="sp-upper"></div>
+</div>
+
+<!-- MODALS -->
+<div class="overlay" id="recipe-modal"><div class="modal"><div class="mdrag"></div><div class="mt2" id="rm-t"></div><div id="rm-body"></div></div></div>
+<div class="overlay" id="pr-modal"><div class="modal"><div class="mdrag"></div><div class="mt2">Update PRs</div><div style="margin-bottom:14px;font-size:13px;color:var(--mt);">Enter your current personal record.</div><div id="pr-mbody"></div></div></div>
+
+<script>
+// ══════════════════════════════
+// QUOTES — personal to Jan
+// ══════════════════════════════
+const QUOTES=[
+"Every rep, every run, every meal — it's all building the Jan you know you can be. The grind doesn't lie.",
+"You didn't start this to be average, Jan. You started to become someone who shows up every single day.",
+"The version of you 90 days from now is watching. Don't let him down.",
+"Jan, the hardest part is already done — you decided to start. Now just keep going.",
+"You're not doing this for anyone else. You're doing this for the Jan in the mirror every morning.",
+"Champions aren't made on perfect days. They're made on days like today — when it's hard and you show up anyway.",
+"Each workout is a vote for the identity you're building. Vote today, Jan.",
+"Tight hips, sore muscles, hard runs — that's your body changing. That's progress. Feel it.",
+"The goal isn't perfect. The goal is consistent. Show up today.",
+"Jan, you've got more in you than you think. The body gives up before the mind does. Push past it.",
+"Every great physique was built one session at a time. This is one of those sessions.",
+"You're not just training your body. You're training your discipline, your confidence, your whole life.",
+"The discomfort you feel in the gym is temporary. The results you build there are permanent.",
+"Don't think about 90 days. Think about today. Just today.",
+"Your future self will thank you for what you do in the next hour.",
+"Every mile you run, every weight you lift — you're writing a new story about who Jan is.",
+"Discipline is doing it when you don't feel like it. You don't need motivation — you need discipline.",
+"Lock in. No excuses. The only workout you regret is the one you skip.",
+"You chose this, Jan. Own it. Execute it. Become it.",
+"One percent better every day. That's all. One percent.",
+"The difference between who you are and who you want to be is what you do today.",
+"Progress isn't always visible. But it's always happening when you show up.",
+"Run when you're tired. Lift when you're sore. Eat right when you want to quit. That's the work.",
+"You are building something real. Keep building, Jan.",
+"90 days goes fast. Don't waste a single one.",
+"Small wins stack. Every session matters more than you realize.",
+"The mirror will catch up. Trust the process.",
+"Hard days build the strongest versions of us. Today is building you.",
+"Jan, you started this. Finish it. That's what separates you.",
+"This is your season. Make it count.",
+];
+
+// ══════════════════════════════
+// 90-DAY PROGRAM — Intermediate/Advanced
+// Weighted pull-ups & dips EVERY week
+// ══════════════════════════════
+function getProgram(w) {
+  const p = w<=4?1:w<=9?2:3;
+
+  // PUSH — unique each week
+  const PUSH = [null,
+    {name:'PUSH — Chest & Shoulder Width',type:'Chest · Shoulders · Triceps',focus:'Volume base. 4×10 pressing. Lateral raises are your #1 aesthetic move.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×10',note:'Controlled negative, 2 seconds down.'},
+      {n:'Smith Machine Flat Press',s:'4×10'},
+      {n:'Weighted Dips',s:'4×10 · +25lb',note:'Full ROM — chest to bar, lockout at top.'},
+      {n:'Cable Lateral Raises',s:'4×15',note:'Lead with elbows, thumbs slightly down. This builds the wide shoulder look.'},
+      {n:'Seated DB Shoulder Press',s:'3×12'},
+      {n:'Tricep Rope Pushdown',s:'3×15'},
+      {n:'Plank',s:'3×45s'},
+    ]},
+    {name:'PUSH — Incline Heavy',type:'Chest · Shoulders · Triceps',focus:'Upper chest is the aesthetic chest. More incline volume this week.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8',note:'Add weight from W1. Upper chest priority.'},
+      {n:'Weighted Dips',s:'4×10 · +30lb'},
+      {n:'Cable Lateral Raises',s:'5×15',note:'5 sets this week — shoulders need volume.'},
+      {n:'Smith Machine Shoulder Press',s:'4×8'},
+      {n:'Skull Crushers',s:'3×12',note:'Full stretch at bottom, controlled.'},
+      {n:'Diamond Push-ups',s:'3×max',note:'Tricep finisher. Go to failure.'},
+      {n:'Plank',s:'3×50s'},
+    ]},
+    {name:'PUSH — Shoulder Focus',type:'Chest · Shoulders · Triceps',focus:'Three shoulder angles this week — front, side, rear for full 3D delts.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8'},
+      {n:'Weighted Dips',s:'4×8 · +35lb'},
+      {n:'Cable Lateral Raises',s:'4×15'},
+      {n:'DB Lateral Raises (drop set)',s:'3×15→10',note:'Last set: full weight to failure, drop 30%, keep going.'},
+      {n:'Smith Machine Shoulder Press',s:'3×10'},
+      {n:'Overhead Tricep Extension',s:'4×12'},
+      {n:'Plank',s:'3×55s'},
+    ]},
+    {name:'PUSH — Heavy Press Week',type:'Chest · Shoulders · Triceps',focus:'Test strength. Lower reps, heavier weight. Find your 6-rep max.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×6',note:'Heaviest yet. Near failure.'},
+      {n:'Smith Machine Flat Press',s:'4×6'},
+      {n:'Weighted Dips',s:'4×8 · +35lb'},
+      {n:'Cable Lateral Raises',s:'4×15'},
+      {n:'Smith Machine Shoulder Press',s:'4×6'},
+      {n:'Overhead Tricep Extension',s:'3×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Overload Phase',type:'Chest · Shoulders · Triceps',focus:'Phase 2. Add 10lbs to all compound lifts from Phase 1 max.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8',note:'10lbs more than W4. This is the overload.'},
+      {n:'Smith Machine Flat Press',s:'4×8'},
+      {n:'Weighted Dips',s:'4×8 · +40lb'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'Smith Machine Shoulder Press',s:'4×8'},
+      {n:'Tricep Rope Pushdown',s:'3×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Width Blitz',type:'Chest · Shoulders · Triceps',focus:'Maximum shoulder volume. Lateral raises 6 sets. Width is everything.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8'},
+      {n:'Weighted Dips',s:'4×10 · +40lb'},
+      {n:'Cable Lateral Raises',s:'6×15',note:'6 sets. By the last set your shoulders will be on fire.'},
+      {n:'DB Lateral Raises',s:'3×20',note:'Lighter, higher reps. Pump them out.'},
+      {n:'Smith Machine Shoulder Press',s:'3×10'},
+      {n:'Skull Crushers',s:'4×10'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Chest Volume Peak',type:'Chest · Shoulders · Triceps',focus:'5 sets on incline this week. Highest chest volume of the program.',ex:[
+      {n:'Smith Machine Incline Press',s:'5×8',note:'5 sets. Push the weight each set.'},
+      {n:'Smith Machine Flat Press',s:'4×8'},
+      {n:'Weighted Dips',s:'4×10 · +40lb'},
+      {n:'Cable Lateral Raises',s:'4×15'},
+      {n:'Tricep Rope Pushdown superset Overhead Ext.',s:'3×12+12',note:'Back to back, no rest between the two.'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Max Strength',type:'Chest · Shoulders · Triceps',focus:'Lowest reps, heaviest weight of Phase 2. New PRs this week.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×5',note:'Your absolute max for 5 reps.'},
+      {n:'Smith Machine Flat Press',s:'4×5'},
+      {n:'Weighted Dips',s:'4×6 · +45lb'},
+      {n:'Cable Lateral Raises',s:'4×15'},
+      {n:'Smith Machine Shoulder Press',s:'4×5'},
+      {n:'Overhead Tricep Extension',s:'3×10'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Hypertrophy Reload',type:'Chest · Shoulders · Triceps',focus:'W8 weight, back to 10 reps. Biggest muscle-building stimulus.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×10',note:'Use W8 weight for more reps. This is the sweet spot.'},
+      {n:'Smith Machine Flat Press',s:'4×10'},
+      {n:'Weighted Dips',s:'4×10 · +45lb'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'DB Arnold Press',s:'3×12',note:'Rotate palms from facing you to facing out as you press.'},
+      {n:'Diamond Push-ups',s:'3×max'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Peak Intensity',type:'Chest · Shoulders · Triceps',focus:'Phase 3. Near failure every working set.',ex:[
+      {n:'Smith Machine Incline Press',s:'5×6',note:'Peak weight. Every set near failure.'},
+      {n:'Weighted Dips',s:'5×8 · +50lb'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'Smith Machine Shoulder Press',s:'4×6'},
+      {n:'Tricep Rope Pushdown',s:'4×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Aesthetic Detail',type:'Chest · Shoulders · Triceps',focus:'Heavy compounds + isolation pump finishers. Shape and strength.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8'},
+      {n:'Weighted Dips',s:'4×10 · +50lb'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'DB Lateral Raises (drop set)',s:'3×15→10→8',note:'Triple drop. Light weight last drop, squeeze every rep.'},
+      {n:'Overhead Tricep Extension',s:'4×12'},
+      {n:'Pike Push-ups',s:'3×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — 5×5 Max',type:'Chest · Shoulders · Triceps',focus:'Heaviest day of the program. 5×5 everything.',ex:[
+      {n:'Smith Machine Incline Press',s:'5×5',note:'New PR attempt. This is your max.'},
+      {n:'Weighted Dips',s:'5×5 · +55lb'},
+      {n:'Smith Machine Shoulder Press',s:'4×5'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'Skull Crushers',s:'4×10'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PUSH — Final Blast',type:'Chest · Shoulders · Triceps',focus:'Last push day. Leave everything in the gym, Jan.',ex:[
+      {n:'Smith Machine Incline Press',s:'4×8 + drop to failure',note:'Last set: hit 8 reps, drop weight 30%, go to failure.'},
+      {n:'Weighted Dips',s:'4×8 · +50lb + BW to failure'},
+      {n:'Cable Lateral Raises',s:'5×15'},
+      {n:'Smith Machine Shoulder Press',s:'4×8'},
+      {n:'Tricep Superset',s:'3×12+12',note:'Pushdown then overhead, no rest between.'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+  ];
+
+  // PULL — weighted pull-ups every single week
+  const PULL = [null,
+    {name:'PULL — Vertical & Horizontal',type:'Back · Biceps · Rear Delts · Abs',focus:'Pull-ups for width. Rows for thickness. Both every week.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +25lb',note:'Full hang, chin over bar. Controlled negative.'},
+      {n:'Smith Machine Bent-Over Row',s:'4×10',note:'Hip hinge, chest up, pull to belly button.'},
+      {n:'Cable Row',s:'3×12'},
+      {n:'Face Pulls',s:'4×15',note:'External rotation — fixes posture and builds rear delts.'},
+      {n:'Hammer Curls',s:'3×12'},
+      {n:'Ab Wheel Rollouts',s:'3×10'},
+      {n:'L-Sit Hold',s:'3×15s'},
+      {n:'Plank',s:'2×50s'},
+    ]},
+    {name:'PULL — Width Focus',type:'Back · Biceps · Rear Delts · Abs',focus:'More vertical pulling. Wide-grip work for the V-taper.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +30lb'},
+      {n:'Wide-Grip Lat Pulldown',s:'4×10',note:'Pull to upper chest. Lats fully contracted.'},
+      {n:'Smith Machine Bent-Over Row',s:'3×10'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Incline DB Curl',s:'3×12',note:'Elbows behind body — maximum bicep stretch.'},
+      {n:'Ab Wheel Rollouts',s:'3×12'},
+      {n:'L-Sit Hold',s:'3×18s'},
+      {n:'Plank',s:'2×55s'},
+    ]},
+    {name:'PULL — Thickness Week',type:'Back · Biceps · Rear Delts · Abs',focus:'Heavy rowing this week. Back thickness comes from rowing volume.',ex:[
+      {n:'Weighted Pull-ups',s:'4×6 · +35lb'},
+      {n:'Smith Machine Bent-Over Row',s:'5×8',note:'Heavy. Use straps if grip gives out.'},
+      {n:'Single-Arm DB Row',s:'3×10 each',note:'Full stretch at bottom, squeeze at top.'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Hammer Curls',s:'4×12'},
+      {n:'Ab Wheel Rollouts',s:'3×12'},
+      {n:'L-Sit Hold',s:'3×20s'},
+      {n:'Plank',s:'3×50s'},
+    ]},
+    {name:'PULL — Heavy Pull Day',type:'Back · Biceps · Rear Delts · Abs',focus:'Low reps, heavy weight. Test your weighted pull-up max.',ex:[
+      {n:'Weighted Pull-ups',s:'4×5 · +40lb',note:'Max effort. If you hit 5 clean, add weight next week.'},
+      {n:'Smith Machine Bent-Over Row',s:'4×6'},
+      {n:'Cable Row',s:'4×8'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Barbell Curl',s:'3×10'},
+      {n:'Ab Wheel Rollouts',s:'3×12'},
+      {n:'L-Sit Hold',s:'3×22s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Overload Phase',type:'Back · Biceps · Rear Delts · Abs',focus:'Phase 2. Add weight to everything from Phase 1 best.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +40lb',note:'Back to volume with Phase 2 weights.'},
+      {n:'Smith Machine Bent-Over Row',s:'4×8'},
+      {n:'Cable Row',s:'4×10'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Hammer Curls',s:'3×12'},
+      {n:'Ab Wheel Rollouts',s:'4×12'},
+      {n:'L-Sit Hold',s:'4×22s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Rear Delt Blitz',type:'Back · Biceps · Rear Delts · Abs',focus:'Rear delts complete the shoulder look. Big emphasis this week.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +40lb'},
+      {n:'Smith Machine Bent-Over Row',s:'4×8'},
+      {n:'Reverse Fly (cable or DB)',s:'4×15',note:'Slight elbow bend, lead with elbows, control the return.'},
+      {n:'Face Pulls',s:'5×15',note:'5 sets. Rear delts + posture = visible difference.'},
+      {n:'Incline DB Curl',s:'3×12'},
+      {n:'Ab Wheel Rollouts',s:'4×12'},
+      {n:'L-Sit Hold',s:'4×24s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Volume Peak',type:'Back · Biceps · Rear Delts · Abs',focus:'Highest pull volume of the program. Back will be sore.',ex:[
+      {n:'Weighted Pull-ups',s:'5×8 · +40lb'},
+      {n:'Smith Machine Bent-Over Row',s:'5×8'},
+      {n:'Cable Row',s:'4×10'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Hammer Curls superset Bicep Curl',s:'3×10+10',note:'No rest between. Massive arm pump.'},
+      {n:'Ab Wheel Rollouts',s:'4×12'},
+      {n:'L-Sit Hold',s:'4×25s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — New PRs',type:'Back · Biceps · Rear Delts · Abs',focus:'Heaviest pull week yet. PR on pull-ups and rows.',ex:[
+      {n:'Weighted Pull-ups',s:'4×5 · +45lb',note:'New PR attempt. Full ROM, no kipping.'},
+      {n:'Smith Machine Bent-Over Row',s:'4×5',note:'Heaviest rows of the program.'},
+      {n:'Cable Row',s:'3×8'},
+      {n:'Face Pulls',s:'3×15'},
+      {n:'Barbell Curl',s:'3×8'},
+      {n:'Ab Wheel Rollouts',s:'3×15'},
+      {n:'L-Sit Hold',s:'4×26s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Reload',type:'Back · Biceps · Rear Delts · Abs',focus:'W8 weight, volume back up. Hypertrophy sweet spot.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +45lb'},
+      {n:'Smith Machine Bent-Over Row',s:'4×10'},
+      {n:'Wide-Grip Pulldown',s:'3×12'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Hammer Curls',s:'4×12'},
+      {n:'Ab Wheel Rollouts',s:'4×15'},
+      {n:'L-Sit Hold',s:'4×26s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Peak Phase',type:'Back · Biceps · Rear Delts · Abs',focus:'Near failure every set. Maximum stimulus.',ex:[
+      {n:'Weighted Pull-ups',s:'5×5 · +50lb',note:'Peak strength. Every rep controlled.'},
+      {n:'Smith Machine Bent-Over Row',s:'5×6'},
+      {n:'Cable Row',s:'4×8'},
+      {n:'Face Pulls',s:'5×15'},
+      {n:'Hammer Curls',s:'4×12'},
+      {n:'Ab Wheel Rollouts',s:'4×15'},
+      {n:'L-Sit Hold',s:'4×28s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Aesthetic Finish',type:'Back · Biceps · Rear Delts · Abs',focus:'Heavy + isolation finishers for muscle detail.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +50lb'},
+      {n:'Smith Machine Bent-Over Row',s:'4×8'},
+      {n:'Reverse Fly',s:'4×15'},
+      {n:'Face Pulls',s:'5×15'},
+      {n:'Incline DB Curl',s:'3×12'},
+      {n:'Concentration Curl',s:'3×12 each',note:'Hold at peak for 1 sec. Squeeze hard.'},
+      {n:'Ab Wheel Rollouts',s:'4×15'},
+      {n:'L-Sit Hold',s:'4×28s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — 5×5 Everything',type:'Back · Biceps · Rear Delts · Abs',focus:'Heaviest pull day of the entire 90 days.',ex:[
+      {n:'Weighted Pull-ups',s:'5×5 · +55lb',note:'New lifetime PR attempt, Jan.'},
+      {n:'Smith Machine Bent-Over Row',s:'5×5',note:'Use straps. Go heavy.'},
+      {n:'Cable Row',s:'4×6'},
+      {n:'Face Pulls',s:'4×15'},
+      {n:'Barbell Curl',s:'4×8'},
+      {n:'Ab Wheel Rollouts',s:'4×15'},
+      {n:'L-Sit Hold',s:'4×30s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'PULL — Final Session',type:'Back · Biceps · Rear Delts · Abs',focus:'Last pull day. Everything you have.',ex:[
+      {n:'Weighted Pull-ups',s:'4×8 · +50lb + BW to failure',note:'Last set: drop the weight and do max bodyweight pull-ups.'},
+      {n:'Smith Machine Bent-Over Row',s:'4×8'},
+      {n:'Face Pulls',s:'5×15'},
+      {n:'Hammer Curls',s:'4×12'},
+      {n:'Ab Wheel Rollouts',s:'5×15'},
+      {n:'L-Sit Hold',s:'5×30s'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+  ];
+
+  // LEGS — unique each week
+  const LEGS = [null,
+    {name:'LEGS — Foundation',type:'Quads · Hamstrings · Glutes · Calves',focus:'Squat pattern + hip hinge. Both every leg day.',ex:[
+      {n:'Smith Machine Squat',s:'4×10',note:'Sit back, don\'t let knees cave. Chest stays up.'},
+      {n:'Smith Machine Romanian DL',s:'4×10',note:'Hip hinge — push hips back, feel hamstring stretch. Not a squat.'},
+      {n:'Leg Press',s:'3×12'},
+      {n:'Leg Curl Machine',s:'3×12'},
+      {n:'Calf Raises',s:'4×20'},
+      {n:'Ab Wheel',s:'3×10'},
+      {n:'Plank',s:'2×50s'},
+    ]},
+    {name:'LEGS — Load Up',type:'Quads · Hamstrings · Glutes · Calves',focus:'Add weight to squat and RDL from W1.',ex:[
+      {n:'Smith Machine Squat',s:'4×8',note:'Add weight from W1.'},
+      {n:'Smith Machine Romanian DL',s:'4×10'},
+      {n:'Leg Press',s:'4×12'},
+      {n:'Leg Curl Machine',s:'3×12'},
+      {n:'Seated Calf Raises',s:'4×20',note:'Different calf head than standing. Do both across the week.'},
+      {n:'Ab Wheel',s:'3×12'},
+      {n:'Plank',s:'2×55s'},
+    ]},
+    {name:'LEGS — Posterior Chain',type:'Quads · Hamstrings · Glutes · Calves',focus:'Hamstring and glute emphasis. The aesthetic lower body.',ex:[
+      {n:'Smith Machine Romanian DL',s:'5×8',note:'5 sets this week. The #1 move for hamstring and glute development.'},
+      {n:'Smith Machine Squat',s:'3×10'},
+      {n:'Leg Curl Machine',s:'4×12'},
+      {n:'Hip Thrust (Smith Machine)',s:'3×12',note:'Drive through heels, squeeze glutes at top. Hold 1 sec.'},
+      {n:'Calf Raises',s:'4×20'},
+      {n:'Ab Wheel',s:'3×12'},
+      {n:'Plank',s:'3×50s'},
+    ]},
+    {name:'LEGS — Heavy Week',type:'Quads · Hamstrings · Glutes · Calves',focus:'Low reps, maximum weight. PR on squats.',ex:[
+      {n:'Smith Machine Squat',s:'4×5',note:'Your max. Near failure.'},
+      {n:'Smith Machine Romanian DL',s:'4×6'},
+      {n:'Leg Press',s:'4×8'},
+      {n:'Leg Curl Machine',s:'3×10'},
+      {n:'Calf Raises',s:'4×20'},
+      {n:'Ab Wheel',s:'3×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Overload Phase',type:'Quads · Hamstrings · Glutes · Calves',focus:'Phase 2. Add 15-20lbs to Phase 1 working weights.',ex:[
+      {n:'Smith Machine Squat',s:'4×10',note:'Heavier than Phase 1. This is the overload.'},
+      {n:'Smith Machine Romanian DL',s:'4×10'},
+      {n:'Leg Press',s:'4×10'},
+      {n:'Leg Curl Machine',s:'4×12'},
+      {n:'Calf Raises',s:'4×20'},
+      {n:'Ab Wheel',s:'4×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Quad Volume',type:'Quads · Hamstrings · Glutes · Calves',focus:'More squat volume this week. Leg press as secondary.',ex:[
+      {n:'Smith Machine Squat',s:'5×10',note:'5 sets. This is the most quad work of the program.'},
+      {n:'Smith Machine Romanian DL',s:'4×8'},
+      {n:'Leg Press',s:'3×12'},
+      {n:'Hip Thrust',s:'3×12'},
+      {n:'Leg Curl Machine',s:'3×12'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×12'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Volume Peak',type:'Quads · Hamstrings · Glutes · Calves',focus:'Highest total leg volume of the program.',ex:[
+      {n:'Smith Machine Squat',s:'5×10'},
+      {n:'Smith Machine Romanian DL',s:'5×10'},
+      {n:'Leg Press',s:'4×12'},
+      {n:'Leg Curl Machine',s:'4×12'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Max Strength',type:'Quads · Hamstrings · Glutes · Calves',focus:'Heaviest legs of Phase 2. New squat PR.',ex:[
+      {n:'Smith Machine Squat',s:'4×4',note:'Your absolute max for 4 clean reps.'},
+      {n:'Smith Machine Romanian DL',s:'4×5'},
+      {n:'Leg Press',s:'4×8'},
+      {n:'Leg Curl Machine',s:'3×10'},
+      {n:'Calf Raises',s:'4×20'},
+      {n:'Ab Wheel',s:'3×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Reload',type:'Quads · Hamstrings · Glutes · Calves',focus:'W8 weight, volume back to 10s. Hypertrophy stimulus.',ex:[
+      {n:'Smith Machine Squat',s:'4×10',note:'Use W8 weight for more reps.'},
+      {n:'Smith Machine Romanian DL',s:'4×10'},
+      {n:'Hip Thrust',s:'4×12'},
+      {n:'Leg Press',s:'3×12'},
+      {n:'Leg Curl Machine',s:'4×12'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Peak Phase',type:'Quads · Hamstrings · Glutes · Calves',focus:'Near failure every set. Phase 3 legs.',ex:[
+      {n:'Smith Machine Squat',s:'5×6',note:'Peak weight. Every set hard.'},
+      {n:'Smith Machine Romanian DL',s:'5×6'},
+      {n:'Leg Press',s:'4×10'},
+      {n:'Leg Curl Machine',s:'4×10'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Definition',type:'Quads · Hamstrings · Glutes · Calves',focus:'Heavy compounds + high-rep finishers for the cut look.',ex:[
+      {n:'Smith Machine Squat',s:'4×8'},
+      {n:'Smith Machine Romanian DL',s:'4×8'},
+      {n:'Leg Press (drop set last)',s:'3×12→failure',note:'Last set: hit 12, drop weight 30%, go to failure.'},
+      {n:'Hip Thrust',s:'3×15'},
+      {n:'Leg Curl Machine',s:'4×12'},
+      {n:'Calf Raises',s:'5×25',note:'Heavy calves. They pop when the fat comes off.'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — 5×5',type:'Quads · Hamstrings · Glutes · Calves',focus:'Heaviest leg day of the entire program.',ex:[
+      {n:'Smith Machine Squat',s:'5×5',note:'Lifetime PR attempt. Everything you\'ve got.'},
+      {n:'Smith Machine Romanian DL',s:'5×5'},
+      {n:'Leg Press',s:'4×8'},
+      {n:'Leg Curl Machine',s:'4×8'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+    {name:'LEGS — Final Session',type:'Quads · Hamstrings · Glutes · Calves',focus:'Last leg day. Go all out.',ex:[
+      {n:'Smith Machine Squat',s:'4×8 + drop to failure'},
+      {n:'Smith Machine Romanian DL',s:'4×8'},
+      {n:'Leg Press',s:'4×12'},
+      {n:'Hip Thrust',s:'3×15'},
+      {n:'Calf Raises',s:'5×20'},
+      {n:'Ab Wheel',s:'4×15'},
+      {n:'Plank',s:'3×60s'},
+    ]},
+  ];
+
+  // CALISTHENICS — weighted dips + pull-ups every week
+  const CALI = [null,
+    {ex:[{n:'Weighted Dips',s:'4×10 · +25lb',note:'Full ROM. This builds chest and tricep faster than most isolation work.'},{n:'Weighted Pull-ups',s:'4×8 · +25lb'},{n:'Pike Push-ups',s:'3×12'},{n:'Australian Rows',s:'3×15'},{n:'L-Sit Holds',s:'4×15s'},{n:'Ab Wheel',s:'3×10'},{n:'Plank',s:'3×50s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×10 · +30lb'},{n:'Weighted Pull-ups',s:'4×8 · +30lb'},{n:'Archer Push-ups',s:'3×6 each',note:'Shift weight to one arm. Advanced push-up variation.'},{n:'Australian Rows',s:'3×15'},{n:'L-Sit Holds',s:'4×18s'},{n:'Ab Wheel',s:'3×12'},{n:'Plank',s:'3×55s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×8 · +35lb'},{n:'Weighted Pull-ups',s:'4×6 · +35lb'},{n:'Pike Push-ups',s:'4×12'},{n:'Australian Rows',s:'4×15'},{n:'L-Sit Holds',s:'4×20s'},{n:'Ab Wheel',s:'4×12'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×6 · +40lb',note:'Heavy this week. PR attempt.'},{n:'Weighted Pull-ups',s:'4×5 · +40lb'},{n:'Pike Push-ups',s:'4×15'},{n:'Australian Rows',s:'4×12'},{n:'L-Sit Holds',s:'4×22s'},{n:'Ab Wheel',s:'4×12'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×10 · +40lb'},{n:'Weighted Pull-ups',s:'4×8 · +40lb'},{n:'Decline Push-ups',s:'3×12',note:'Feet elevated. Upper chest activation.'},{n:'Australian Rows',s:'4×15'},{n:'L-Sit Holds',s:'4×22s'},{n:'Ab Wheel',s:'4×12'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'5×8 · +40lb'},{n:'Weighted Pull-ups',s:'5×6 · +40lb'},{n:'Archer Push-ups',s:'3×8 each'},{n:'Australian Rows',s:'5×12'},{n:'L-Sit Holds',s:'4×24s'},{n:'Ab Wheel',s:'4×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'5×10 · +45lb'},{n:'Weighted Pull-ups',s:'5×8 · +40lb'},{n:'Pike Push-ups',s:'4×15'},{n:'Australian Rows',s:'5×15'},{n:'L-Sit Holds',s:'5×25s'},{n:'Ab Wheel',s:'4×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×5 · +50lb',note:'Heaviest dip PR attempt.'},{n:'Weighted Pull-ups',s:'4×5 · +50lb',note:'Heaviest pull-up PR attempt.'},{n:'Pike Push-ups',s:'3×15'},{n:'Australian Rows',s:'4×12'},{n:'L-Sit Holds',s:'4×27s'},{n:'Ab Wheel',s:'4×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×10 · +50lb'},{n:'Weighted Pull-ups',s:'4×8 · +50lb'},{n:'Decline Push-ups',s:'4×15'},{n:'Australian Rows',s:'4×15'},{n:'L-Sit Holds',s:'5×27s'},{n:'Ab Wheel',s:'5×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'5×6 · +55lb'},{n:'Weighted Pull-ups',s:'5×5 · +55lb'},{n:'Archer Push-ups',s:'4×8 each'},{n:'Australian Rows',s:'5×12'},{n:'L-Sit Holds',s:'5×28s'},{n:'Ab Wheel',s:'5×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×10 · +55lb'},{n:'Weighted Pull-ups',s:'4×8 · +55lb'},{n:'Pike Push-ups',s:'4×15'},{n:'Australian Rows',s:'5×15'},{n:'L-Sit Holds',s:'5×29s'},{n:'Ab Wheel',s:'5×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'5×5 · +60lb',note:'Lifetime PR attempt. All out.'},{n:'Weighted Pull-ups',s:'5×5 · +60lb'},{n:'Decline Push-ups',s:'4×15'},{n:'Australian Rows',s:'5×12'},{n:'L-Sit Holds',s:'5×30s'},{n:'Ab Wheel',s:'5×15'},{n:'Plank',s:'3×60s'}]},
+    {ex:[{n:'Weighted Dips',s:'4×8 · +55lb + BW to failure',note:'Drop weight after last set, go to failure bodyweight.'},{n:'Weighted Pull-ups',s:'4×8 · +55lb + BW to failure'},{n:'Archer Push-ups',s:'3×max each'},{n:'Australian Rows',s:'5×15'},{n:'L-Sit Holds',s:'5×30s'},{n:'Ab Wheel',s:'5×15'},{n:'Plank',s:'3×60s'}]},
+  ];
+
+  // Run descriptions — detailed, change every week
+  const d1 = w<=2?'1 mile':w<=4?'1.3 miles':w<=6?'1.6 miles':w<=8?'2 miles':w<=10?'2.3 miles':'2.5 miles';
+  const d2 = w<=2?'0.5 mi':w<=4?'0.8 mi':w<=6?'1 mi':w<=8?'1.3 mi':w<=10?'1.5 mi':'2 mi';
+
+  const baseRunDetail = `Start with a 3-minute warm-up walk at 3.0 mph — let your legs and lungs wake up before you ask them to work. Then run ${d1} at a conversational pace. The test: can you say a full sentence without gasping? If not, slow down. This is aerobic base building — the goal is time on your feet, not speed. After that first stretch, walk for 90 seconds at 3.0 mph to recover your breathing completely. Then push a second run of ${d2} — this one can be a little harder, maybe 60-70% effort. Finish with 10 minutes of incline walking at 10-12% grade, 3.0 mph. That incline walk burns significant extra calories without joint stress. Total session: 30-40 minutes.`;
+
+  const intRunOpts = [
+    `Set your treadmill to 8-10% incline. Sprint at 85-90% effort for 20 seconds — you should feel like you genuinely cannot hold this pace much longer. Then step to the sides or slow to a walk for 40 seconds. Repeat ${w<=4?'8':w<=9?'10':'12'} rounds. Your legs will be burning by round 4. That's normal. The goal is to complete all rounds. Each round gets slightly harder — embrace it. Cool down with a 5-minute walk. This is the fastest way to improve your cardiovascular fitness and burn fat simultaneously.`,
+    `Warm up easy for 5 minutes, then find your tempo pace — this is the speed where you can barely say 3-4 words at a time. Not all-out, but deeply uncomfortable. Hold this for ${w<=4?'15':w<=7?'18':'22'} minutes without stopping. No walk breaks. If you have to slow down slightly, do it — but don't walk. The goal is unbroken cardio at high intensity. This builds your aerobic ceiling faster than any other method. Cool down easy for 5 minutes after.`,
+    `After your 5-minute warm-up, run 1 minute hard, walk 90 seconds. Run 2 minutes hard, walk 90 seconds. Run 3 minutes hard — this is the peak — walk 2 minutes to recover. Then back down: run 2 minutes hard, walk 90 seconds. Run 1 minute hard, done. That's one full pyramid. ${w<=5?'Complete 1 pyramid':'Complete 1-2 pyramids with 3 minutes rest between'}. The 3-minute push in the middle is the hardest part. Don't quit. Cool down walk 5 minutes.`,
+  ];
+  const intRunDetail = intRunOpts[(w-1)%3];
+
+  const easyRunDist = w<=4?'1 mile':w<=9?'1.5 miles':'2 miles';
+  const caliRunDetail = `After finishing your bodyweight session, get on the treadmill for an easy ${easyRunDist}. Target 5.0-5.5 mph, or whatever lets you breathe comfortably and hold a conversation. This isn't a cardio challenge — it's active recovery. Your muscles are already warmed up from the calisthenics, so blood flow to your legs will help flush out the waste products from training. If you feel good and have energy, add 5 minutes of incline walking at 10% grade as a bonus fat-burn finisher.`;
+
+  const caliDay = {
+    name:'CALISTHENICS + RUN', type:'Bodyweight · Skill · Easy Run',
+    focus:'Weighted bodyweight strength + easy aerobic work.',
+    runDetail: caliRunDetail,
+    ex:[...CALI[w].ex, {n:`Easy treadmill run`,s:`${easyRunDist} · easy`,note:'Conversational pace. Active recovery cardio.'}]
+  };
+
+  const REST = {name:'REST DAY',type:'Recovery · Mobility · Nutrition',ex:[
+    {n:'Zero training',s:'Full rest'},
+    {n:'Lower body stretch routine',s:'10 min'},
+    {n:'Upper body stretch',s:'5 min'},
+    {n:'Hit protein goal',s:'155g'},
+    {n:'Gallon of water',s:'128 oz'},
+    {n:'Sleep 8 hours',s:'Non-negotiable'},
+  ]};
+
+  return [
+    {...PUSH[w], runDetail:null},
+    {name:'BASE RUN', type:'Aerobic Base · Fat Burn', focus:`Week ${w} base run — building toward a continuous 5K.`, runDetail:baseRunDetail, ex:[
+      {n:'Warm-up walk (3.0mph)',s:'3 min'},
+      {n:'Continuous run',s:`${d1} · easy pace`},
+      {n:'Walk recovery',s:'90 sec'},
+      {n:'Second run push',s:`${d2} · harder`},
+      {n:'Incline treadmill walk (10-12%)',s:'10 min'},
+    ]},
+    {...PULL[w], runDetail:null},
+    {name:'INTENSITY RUN', type:['Hill Sprints','Tempo Run','Pyramid Intervals'][(w-1)%3], focus:`Week ${w} intensity day.`, runDetail:intRunDetail, ex:[
+      {n:'Warm-up jog',s:'5 min easy'},
+      {n:['Hill Sprints','Tempo Run','Pyramid Intervals'][(w-1)%3], s:`Week ${w}`, note:'See run instructions below ↓'},
+      {n:'Cool-down walk',s:'5 min'},
+    ]},
+    {...LEGS[w], runDetail:null},
+    caliDay,
+    REST,
+  ];
+}
+
+// ══════════════════════════════
+// RECIPES — 13 weeks × 4 meals = 52 unique recipes
+// ══════════════════════════════
+const ALL_RECIPES = [
+  // WEEK 1
+  {w:1,cat:'Breakfast',e:'🍳',name:'High-Protein Egg & Turkey Bowl',cals:420,pro:42,carb:18,fat:20,time:'10 min',desc:'Scrambled eggs with ground turkey and veggies. Weekday staple.',ing:['5 large eggs','3oz lean ground turkey','½ cup spinach','¼ cup cherry tomatoes','2 tbsp feta','Garlic powder, salt, pepper','1 tsp olive oil'],steps:['Cook turkey in pan, season with garlic powder, salt, pepper.','Add spinach and tomatoes, cook 2 min.','Whisk eggs, pour over, scramble together.','Top with feta.'],tip:'Cook turkey in bulk Sunday. Reheat with fresh eggs each morning.'},
+  {w:1,cat:'Lunch',e:'🍱',name:'Classic Chicken Rice Bowl',cals:510,pro:48,carb:52,fat:10,time:'25 min',desc:'The foundation meal of your cut. Build 5 at once on Sunday.',ing:['6oz chicken breast','1 cup brown rice (dry)','1 cup broccoli','½ cup black beans','2 tbsp soy sauce (low sodium)','Garlic powder, paprika, onion powder'],steps:['Season chicken, bake 400°F for 20 min.','Cook rice. Steam broccoli 5 min.','Portion into containers with all ingredients.','Drizzle soy sauce before eating.'],tip:'This one recipe alone keeps your macros on point all week.'},
+  {w:1,cat:'Dinner',e:'🍖',name:'Turkey Stuffed Bell Peppers',cals:490,pro:46,carb:34,fat:14,time:'35 min',desc:'Looks impressive, incredibly easy. Full balanced meal.',ing:['4 large bell peppers','1 lb lean ground turkey','1 cup cooked brown rice','1 can diced tomatoes (drained)','1 tsp cumin','1 tsp chili powder','¼ cup shredded mozzarella'],steps:['Preheat oven to 375°F. Cut tops off peppers, remove seeds.','Brown turkey with garlic, cumin, chili powder.','Mix with rice and tomatoes.','Stuff peppers, top with mozzarella.','Bake 25 min until tender.'],tip:'The filling stores for 5 days — stuff fresh peppers throughout the week.'},
+  {w:1,cat:'Snack',e:'🥛',name:'Pre-Workout Banana Shake',cals:310,pro:28,carb:38,fat:4,time:'2 min',desc:'Fast carbs + protein. Drink 45 min before training.',ing:['1 scoop chocolate or vanilla protein','1 banana','1 cup almond milk','1 tsp peanut butter','Ice'],steps:['Blend everything 30 seconds.','Drink 30-45 min before training.'],tip:'The banana\'s fast carbs fuel your session. Protein primes the muscles. Simple and proven.'},
+  // WEEK 2
+  {w:2,cat:'Breakfast',e:'🥣',name:'Protein Oat Power Bowl',cals:480,pro:38,carb:52,fat:10,time:'8 min',desc:'Pre-workout carbs and protein in one bowl.',ing:['1 cup rolled oats','1 scoop vanilla protein','1 banana, sliced','1 tbsp peanut butter','1 cup almond milk','Cinnamon, honey'],steps:['Cook oats in almond milk.','Cool 2 min, stir in protein powder.','Top with banana, PB, cinnamon, honey.'],tip:'Mix protein with a little cold water first to prevent clumping in hot oats.'},
+  {w:2,cat:'Lunch',e:'🥗',name:'Tuna Avocado Salad',cals:380,pro:44,carb:12,fat:16,time:'5 min',desc:'No-cook, extremely fast, high protein.',ing:['2 cans tuna in water (10oz)','½ avocado, diced','1 tbsp Greek yogurt','Lemon juice','Cucumber, sliced','Red onion, diced','Salt, pepper'],steps:['Drain tuna completely.','Mix with Greek yogurt, lemon, salt, pepper.','Fold in avocado and veggies gently.','Serve on rice cakes or lettuce.'],tip:'Avocado adds healthy fats and makes it filling. Perfect for cutting.'},
+  {w:2,cat:'Dinner',e:'🍣',name:'Teriyaki Salmon + Rice',cals:520,pro:44,carb:28,fat:20,time:'20 min',desc:'Omega-3 rich, delicious, incredible for recovery.',ing:['6oz salmon fillet','1 cup jasmine rice','1 cup broccoli','2 tbsp soy sauce','1 tbsp honey','1 tsp sesame oil','Grated ginger','Sesame seeds'],steps:['Mix soy sauce, honey, sesame oil, ginger for glaze.','Cook rice. Steam broccoli.','Brush salmon with half the glaze.','Bake 400°F for 12-14 min.','Drizzle remaining glaze. Top with sesame seeds.'],tip:'Salmon\'s omega-3s reduce inflammation from heavy training. Eat this on leg day.'},
+  {w:2,cat:'Snack',e:'🥚',name:'Cottage Cheese Power Bowl',cals:230,pro:30,carb:16,fat:5,time:'2 min',desc:'Casein protein before bed. Feeds muscles overnight.',ing:['1 cup low-fat cottage cheese','½ cup mixed berries','1 tbsp honey','Chia seeds','Cinnamon'],steps:['Put cottage cheese in bowl.','Top with everything else.','Eat before bed.'],tip:'Cottage cheese casein digests slowly all night. One of the best pre-bed muscle foods.'},
+  // WEEK 3
+  {w:3,cat:'Breakfast',e:'🌯',name:'High-Protein Breakfast Burrito',cals:460,pro:40,carb:36,fat:16,time:'12 min',desc:'Portable, filling, great macros. Meal prep friendly.',ing:['4 large eggs + 2 egg whites','2oz turkey breast, diced','¼ cup black beans','1 whole wheat tortilla','2 tbsp salsa','1 tbsp Greek yogurt (sour cream sub)','Cumin, chili powder'],steps:['Scramble eggs with turkey, season with cumin and chili.','Warm tortilla. Add egg mix, beans.','Top with salsa and Greek yogurt.','Roll tight.'],tip:'Make 5 ahead, wrap in foil. Refrigerate. Microwave 90 sec on the way out the door.'},
+  {w:3,cat:'Lunch',e:'🥙',name:'Greek Chicken Pita',cals:450,pro:42,carb:38,fat:12,time:'15 min',desc:'Mediterranean flavors, high protein, satisfying.',ing:['5oz grilled chicken','1 whole wheat pita','½ cup Greek yogurt tzatziki','Cucumber, tomato, red onion','Kalamata olives','Oregano, garlic powder','Lemon juice'],steps:['Season chicken with oregano, garlic, lemon. Grill or pan cook.','Mix yogurt with grated cucumber, garlic, lemon for tzatziki.','Slice chicken. Load pita with everything.'],tip:'Tzatziki is basically protein-enriched sauce. Greek yogurt base means you\'re adding protein to every bite.'},
+  {w:3,cat:'Dinner',e:'🍜',name:'High-Protein Chicken Pho',cals:420,pro:48,carb:32,fat:8,time:'25 min',desc:'Low fat, insanely high protein, surprisingly filling.',ing:['6oz chicken breast, thinly sliced','4 cups low-sodium chicken broth','2oz rice noodles','1 cup bean sprouts','Green onions, cilantro','2 tbsp soy sauce','Star anise, ginger','Sriracha, hoisin to serve'],steps:['Simmer broth with star anise and ginger 10 min.','Cook rice noodles separately per package.','Add raw chicken slices to simmering broth — cooks in 3-4 min.','Bowl: noodles, broth + chicken, bean sprouts, herbs.','Top with soy sauce, sriracha, hoisin.'],tip:'This is a surprisingly lean meal. The broth keeps you full without the calories.'},
+  {w:3,cat:'Snack',e:'🥜',name:'Protein Peanut Butter Balls',cals:180,pro:14,carb:14,fat:8,time:'10 min',desc:'No-bake protein snack. Make a batch Sunday.',ing:['1 scoop vanilla protein','½ cup oats','3 tbsp peanut butter','1 tbsp honey','2 tbsp dark chocolate chips','Splash of almond milk if needed'],steps:['Mix everything together.','If too dry, add a splash of almond milk.','Roll into 8-10 balls.','Refrigerate 30 min to firm up.'],tip:'Make 10 at once. Grab 2-3 as a pre/post workout snack all week.'},
+  // WEEK 4
+  {w:4,cat:'Breakfast',e:'🫐',name:'Protein Smoothie Bowl',cals:420,pro:36,carb:44,fat:10,time:'5 min',desc:'Thick blended bowl with toppings. Feels indulgent.',ing:['1 scoop vanilla protein','1 frozen banana','½ cup frozen mixed berries','½ cup Greek yogurt','¼ cup almond milk','Toppings: granola, fresh fruit, chia seeds'],steps:['Blend protein, banana, berries, yogurt, almond milk until thick.','Pour into bowl (should be thick enough to hold toppings).','Top with granola, fruit, chia seeds.'],tip:'Use less liquid than a regular smoothie — you want it thick so you eat it with a spoon.'},
+  {w:4,cat:'Lunch',e:'🌮',name:'Ground Turkey Taco Bowl',cals:520,pro:46,carb:44,fat:14,time:'20 min',desc:'Chipotle vibes at home. Controlled macros.',ing:['5oz lean ground turkey','1 cup brown rice','½ cup black beans','¼ avocado','Greek yogurt (sour cream)','Salsa, lime','Cumin, chili powder, garlic'],steps:['Cook turkey with cumin, chili, garlic, salt.','Build bowl: rice, turkey, beans.','Top with avocado, Greek yogurt, salsa, lime.'],tip:'Ground turkey is one of the leanest proteins available. Way less fat than beef, same taste with the right seasoning.'},
+  {w:4,cat:'Dinner',e:'🍗',name:'Baked Lemon Herb Chicken Thighs',cals:480,pro:44,carb:8,fat:28,time:'30 min',desc:'Higher fat this week for recovery. Incredibly flavorful.',ing:['6oz boneless skinless chicken thighs','Lemon juice and zest','2 cloves garlic, minced','Rosemary, thyme','1 tbsp olive oil','Salt, pepper','Side of roasted asparagus'],steps:['Marinate chicken in lemon, garlic, herbs, olive oil — 15 min minimum.','Bake at 425°F for 25 min until golden.','Roast asparagus alongside with olive oil and salt.'],tip:'Chicken thighs have more fat than breast — which means more flavor AND better recovery hormones. Don\'t fear the fat.'},
+  {w:4,cat:'Snack',e:'🧀',name:'Turkey Roll-Ups',cals:200,pro:24,carb:4,fat:10,time:'3 min',desc:'Lazy snack. High protein. Zero cooking.',ing:['4oz deli turkey breast (low sodium)','2 tbsp cream cheese','Cucumber slices or spinach','Everything bagel seasoning'],steps:['Spread cream cheese on turkey slices.','Add cucumber or spinach.','Roll up tight.','Sprinkle everything bagel seasoning.'],tip:'Keep deli turkey and cream cheese stocked. This takes 3 minutes and hits 24g protein.'},
+  // WEEK 5
+  {w:5,cat:'Breakfast',e:'🥞',name:'Protein Pancakes',cals:440,pro:38,carb:46,fat:10,time:'15 min',desc:'Tastes like a cheat meal, perfectly on your macros.',ing:['2 scoops vanilla protein','1 cup oat flour','2 eggs','1 cup almond milk','1 tsp baking powder','Cinnamon','Sugar-free maple syrup'],steps:['Mix all dry ingredients. Whisk in eggs and almond milk.','Heat nonstick pan, spray with cooking spray.','Cook pancakes 2-3 min per side.','Serve with sugar-free syrup.'],tip:'These actually taste good. The protein powder does most of the work. High volume meal for low calories.'},
+  {w:5,cat:'Lunch',e:'🍤',name:'Shrimp Rice Bowl',cals:430,pro:40,carb:48,fat:8,time:'15 min',desc:'Shrimp cooks in 3 minutes. Fast and high protein.',ing:['6oz large shrimp, peeled','1 cup white or brown rice','1 cup snap peas','2 tbsp soy sauce','1 tsp sesame oil','Garlic, ginger','Sriracha'],steps:['Cook rice.','Sauté garlic and ginger in sesame oil.','Add shrimp — cooks in 2-3 min per side until pink.','Add snap peas for last minute.','Toss with soy sauce and sriracha.'],tip:'Shrimp is one of the highest protein-per-calorie foods out there. Learn to love it.'},
+  {w:5,cat:'Dinner',e:'🥩',name:'Lean Beef & Veggie Stir Fry',cals:510,pro:44,carb:30,fat:20,time:'20 min',desc:'Satisfying, full of flavor, solid iron for performance.',ing:['5oz lean beef (sirloin or eye of round), thinly sliced','1 cup brown rice','Broccoli, bell peppers, snap peas','3 tbsp soy sauce (low sodium)','1 tbsp oyster sauce','1 tsp sesame oil','Garlic, ginger'],steps:['Cook rice.','High heat: sear beef 2-3 min, set aside.','Stir fry veggies in sesame oil with garlic and ginger.','Return beef, add soy sauce and oyster sauce.','Serve over rice.'],tip:'Lean beef has creatine naturally. Red meat once a week is great for performance and testosterone.'},
+  {w:5,cat:'Snack',e:'🍌',name:'Greek Yogurt Bark',cals:190,pro:20,carb:18,fat:4,time:'5 min + freeze',desc:'Frozen treat that feels like dessert. 20g protein.',ing:['1 cup Greek yogurt (plain)','1 tbsp honey','½ cup mixed berries','2 tbsp dark chocolate chips','Granola for topping'],steps:['Mix yogurt with honey.','Spread thin on parchment-lined baking sheet.','Top with berries, chocolate chips, granola.','Freeze 3-4 hours until solid.','Break into pieces and keep in freezer.'],tip:'Make this Sunday. Have it as a high-protein dessert all week.'},
+  // WEEK 6
+  {w:6,cat:'Breakfast',e:'🍄',name:'Savory Mushroom Egg Scramble',cals:360,pro:34,carb:12,fat:20,time:'12 min',desc:'Earthy, satisfying, different from the usual eggs.',ing:['4 eggs + 2 egg whites','1 cup cremini mushrooms, sliced','½ cup spinach','2 tbsp parmesan','1 tsp butter','Thyme, garlic salt','2 pieces whole wheat toast'],steps:['Sauté mushrooms in butter with thyme until golden.','Add spinach, cook 1 min.','Add beaten eggs, scramble low and slow.','Top with parmesan.','Serve with toast.'],tip:'Mushrooms have umami that makes eggs feel like a restaurant meal. Cheap and filling.'},
+  {w:6,cat:'Lunch',e:'🥗',name:'Quinoa Chicken Power Bowl',cals:500,pro:48,carb:46,fat:12,time:'20 min',desc:'Quinoa has more protein than rice. Underrated swap.',ing:['6oz grilled chicken','1 cup quinoa (cooked)','½ cup chickpeas','Cucumber, cherry tomatoes','2 tbsp tahini','Lemon juice','Parsley, salt'],steps:['Cook quinoa per package.','Grill or pan-cook chicken.','Mix tahini with lemon juice and a little water for dressing.','Bowl: quinoa, chicken, chickpeas, veggies.','Drizzle tahini dressing.'],tip:'Quinoa is a complete protein — unlike rice, it has all essential amino acids. Worth the switch.'},
+  {w:6,cat:'Dinner',e:'🍛',name:'Chicken Tikka Masala (Lightened)',cals:480,pro:46,carb:28,fat:16,time:'30 min',desc:'One of the best-tasting high-protein meals out there.',ing:['6oz chicken breast, cubed','½ cup Greek yogurt (marinade)','1 can crushed tomatoes','½ cup light coconut milk','Garam masala, cumin, paprika, turmeric','Garlic, ginger','1 cup basmati rice'],steps:['Marinate chicken in yogurt + spices 15 min.','Sear chicken in pan until browned.','Add tomatoes, coconut milk, spices. Simmer 15 min.','Serve over basmati rice.'],tip:'Greek yogurt marinade tenderizes the chicken AND adds protein to the sauce. Win-win.'},
+  {w:6,cat:'Snack',e:'🥑',name:'Tuna & Avocado Rice Cakes',cals:220,pro:26,carb:14,fat:8,time:'3 min',desc:'Perfect post-workout snack. Zero cooking.',ing:['1 can tuna (5oz), drained','¼ avocado','Lime juice','Everything bagel seasoning','4 brown rice cakes','Hot sauce optional'],steps:['Mash avocado with lime juice.','Mix tuna with avocado.','Spread on rice cakes.','Top with seasoning and hot sauce.'],tip:'30g protein in 3 minutes. Keep a can of tuna and a ripe avocado stocked at all times.'},
+  // WEEK 7
+  {w:7,cat:'Breakfast',e:'🧇',name:'Protein French Toast',cals:460,pro:40,carb:42,fat:14,time:'12 min',desc:'Weekend vibes, weekday macros.',ing:['3 slices whole wheat bread','3 eggs + 1 egg white','¼ cup almond milk','1 tsp vanilla extract','Cinnamon','1 scoop vanilla protein (in the egg mix)','Sugar-free maple syrup'],steps:['Whisk eggs, milk, protein powder, vanilla, cinnamon.','Dip bread slices.','Cook in nonstick pan with cooking spray, 2-3 min each side.','Serve with sugar-free syrup.'],tip:'Adding protein powder to the egg mix sounds weird but you can\'t taste it. Just do it.'},
+  {w:7,cat:'Lunch',e:'🌯',name:'Chicken Caesar Wrap',cals:470,pro:44,carb:36,fat:16,time:'10 min',desc:'Classic done right. Way better macros than restaurant version.',ing:['5oz grilled chicken','1 whole wheat wrap','2 cups romaine, chopped','2 tbsp light Caesar dressing','2 tbsp parmesan','Lemon juice','Black pepper'],steps:['Slice chicken.','Toss romaine with Caesar dressing, parmesan, lemon.','Load wrap with chicken and salad.','Roll tight.'],tip:'Use rotisserie chicken if you haven\'t prepped. Fastest high-protein lunch possible.'},
+  {w:7,cat:'Dinner',e:'🍝',name:'Protein Bolognese',cals:530,pro:50,carb:44,fat:14,time:'30 min',desc:'Ground turkey pasta that tastes like the real thing.',ing:['5oz lean ground turkey','2 servings chickpea pasta (higher protein)','1 can crushed tomatoes','Garlic, onion, Italian herbs','Parmesan','Red wine vinegar','Olive oil'],steps:['Brown turkey with onion and garlic.','Add tomatoes, herbs, vinegar. Simmer 15 min.','Cook chickpea pasta per package.','Combine, top with parmesan.'],tip:'Chickpea pasta has ~13g protein per serving vs 7g for regular pasta. The taste difference is minimal.'},
+  {w:7,cat:'Snack',e:'🍫',name:'Dark Chocolate Protein Mousse',cals:220,pro:24,carb:14,fat:8,time:'5 min',desc:'Feels like dessert. 24g protein. This is not a drill.',ing:['1 scoop chocolate protein','½ cup Greek yogurt','1 tbsp cocoa powder','1 tbsp almond milk','Stevia or honey to taste','Whipped cream (optional)'],steps:['Whisk protein powder and cocoa into yogurt.','Add almond milk until mousse-like texture.','Sweeten to taste.','Top with whipped cream if desired.'],tip:'Eat this when you\'re craving something sweet. It\'s genuinely good.'},
+  // WEEK 8
+  {w:8,cat:'Breakfast',e:'🥓',name:'Egg White & Turkey Bacon Sandwich',cals:390,pro:38,carb:32,fat:10,time:'10 min',desc:'Feels like a diner breakfast. High protein, low fat.',ing:['5 egg whites','2 strips turkey bacon','2 slices whole wheat bread or English muffin','1 tbsp light cream cheese','Tomato, spinach','Hot sauce'],steps:['Cook turkey bacon until crispy.','Scramble egg whites with a little salt.','Toast bread.','Layer: cream cheese, egg whites, bacon, tomato, spinach.','Add hot sauce.'],tip:'Turkey bacon has about 70% less fat than regular bacon. You get the flavor, not the fat.'},
+  {w:8,cat:'Lunch',e:'🍲',name:'Lean Beef Chili',cals:490,pro:46,carb:38,fat:14,time:'35 min',desc:'Meal prep king. Keeps for a week. Incredible macros.',ing:['1 lb lean ground beef (93%)','1 can kidney beans','1 can black beans','1 can diced tomatoes','1 can tomato paste','Onion, garlic','Chili powder, cumin, paprika, oregano','Beef broth'],steps:['Brown beef with onion and garlic.','Add all remaining ingredients.','Simmer 25 min.','Season to taste.'],tip:'Make a huge pot. Eat it 4 days. Freeze the rest. This is your best meal prep weapon.'},
+  {w:8,cat:'Dinner',e:'🐟',name:'Baked Cod with Lemon & Capers',cals:320,pro:44,carb:6,fat:10,time:'20 min',desc:'Very low calorie, very high protein. Cutting meal.',ing:['7oz cod fillet','Lemon juice and zest','2 tbsp capers','Garlic, olive oil','Parsley, salt, pepper','Side of roasted veggies'],steps:['Preheat oven to 400°F.','Place cod in baking dish.','Top with lemon, capers, garlic, olive oil.','Bake 15-18 min until flaky.','Serve with roasted broccoli or asparagus.'],tip:'Cod is extremely lean — 44g protein for under 300 calories in the fish alone. Best protein-per-calorie fish.'},
+  {w:8,cat:'Snack',e:'🥕',name:'Hummus & Veggie Protein Box',cals:240,pro:14,carb:22,fat:10,time:'3 min',desc:'Clean, whole food snack. Actually fills you up.',ing:['½ cup store-bought hummus','Carrot sticks','Celery sticks','Cucumber slices','Bell pepper strips','4-5 whole grain crackers'],steps:['Portion hummus into a container.','Cut veggies.','Pack together.'],tip:'Hummus is made from chickpeas — decent protein and loads of fiber. Add it to your weekly shopping.'},
+  // WEEK 9
+  {w:9,cat:'Breakfast',e:'🥑',name:'Avocado Toast with Smoked Salmon',cals:450,pro:34,carb:28,fat:22,time:'8 min',desc:'Healthy fats + omega-3s + protein. Recovery breakfast.',ing:['2 slices sourdough bread','½ avocado','3oz smoked salmon','2 eggs (poached or fried)','Lemon juice','Red pepper flakes','Everything bagel seasoning'],steps:['Toast sourdough.','Mash avocado with lemon and seasoning.','Top with smoked salmon.','Add eggs on top.','Sprinkle red pepper flakes.'],tip:'Smoked salmon gives you omega-3s AND high protein. Worth having once a week.'},
+  {w:9,cat:'Lunch',e:'🍱',name:'Korean-Style Ground Turkey Bowl',cals:500,pro:44,carb:42,fat:16,time:'15 min',desc:'Bold flavors. Way better than boring chicken again.',ing:['5oz lean ground turkey','1 cup white rice','½ cup shredded cabbage','2 tbsp gochujang or sriracha','2 tbsp soy sauce','1 tbsp sesame oil','Garlic, ginger','Sesame seeds, green onion'],steps:['Cook turkey with garlic and ginger.','Mix in gochujang, soy sauce, sesame oil.','Serve over rice with cabbage.','Top with sesame seeds and green onion.'],tip:'This takes the same effort as plain chicken rice but tastes 10x better. Flavor makes compliance easier.'},
+  {w:9,cat:'Dinner',e:'🦃',name:'Turkey Meatball Zucchini Pasta',cals:460,pro:46,carb:24,fat:18,time:'30 min',desc:'Lower carb option. Same satisfaction as pasta.',ing:['1 lb ground turkey','2 large zucchini (spiralized or use peeler)','1 egg','¼ cup parmesan','Italian seasoning, garlic','1 jar marinara (low sugar)','Fresh basil'],steps:['Mix turkey with egg, parmesan, seasoning. Roll into balls.','Bake at 400°F for 18 min.','Spiralize zucchini. Sauté 2-3 min.','Warm marinara.','Combine and serve with fresh basil.'],tip:'Zucchini pasta keeps this very low carb. Good option if you had a lot of carbs earlier in the day.'},
+  {w:9,cat:'Snack',e:'🧃',name:'Protein Green Smoothie',cals:280,pro:30,carb:24,fat:6,time:'3 min',desc:'Sneaks vegetables in without tasting like vegetables.',ing:['1 scoop vanilla protein','2 cups spinach','1 banana (frozen)','½ cup pineapple chunks (frozen)','1 cup almond milk','Ginger (optional)'],steps:['Blend everything until smooth.','Add more almond milk if too thick.'],tip:'Spinach has zero flavor when blended with fruit. You get iron and vitamins without knowing they\'re there.'},
+  // WEEK 10
+  {w:10,cat:'Breakfast',e:'🥚',name:'Egg White Veggie Muffins (Batch)',cals:180,pro:22,carb:8,fat:4,time:'25 min',desc:'Make 12 Sunday. Grab-and-go all week.',ing:['8 egg whites','½ cup diced bell peppers','¼ cup onion, diced','¼ cup spinach, chopped','2 tbsp feta','Italian seasoning, salt'],steps:['Preheat oven to 350°F. Spray muffin tin.','Sauté veggies 3 min.','Whisk egg whites with seasoning. Fold in veggies and feta.','Pour into muffin cups ¾ full.','Bake 18-20 min.'],tip:'3-4 muffins = 22g protein. Fastest breakfast that doesn\'t require thinking.'},
+  {w:10,cat:'Lunch',e:'🥘',name:'High-Protein Lentil Soup',cals:420,pro:32,carb:52,fat:8,time:'30 min',desc:'Plant-based protein that actually hits hard. Dirt cheap.',ing:['1 cup red lentils','4 cups vegetable broth','1 can diced tomatoes','1 onion, diced','3 cloves garlic','Cumin, turmeric, paprika','Spinach','Lemon juice'],steps:['Sauté onion and garlic.','Add lentils, broth, tomatoes, spices.','Simmer 20-25 min until lentils soft.','Stir in spinach. Add lemon juice.'],tip:'Lentils have 18g protein per cooked cup. Add Greek yogurt on top for extra protein if needed.'},
+  {w:10,cat:'Dinner',e:'🐔',name:'Chicken Shawarma Bowl',cals:510,pro:48,carb:36,fat:16,time:'25 min',desc:'Middle Eastern spices make the same chicken feel completely different.',ing:['6oz chicken breast','Cumin, coriander, turmeric, paprika, cinnamon, garlic','1 cup brown rice or pita','Cucumber, tomato, red onion','Tahini sauce','Lemon juice, parsley'],steps:['Season chicken heavily with spice blend.','Grill or pan-sear 5-6 min per side.','Slice thin.','Build bowl with rice, chicken, veggies.','Drizzle tahini mixed with lemon.'],tip:'The spice blend is everything. Mix a big batch and store it — use it on any protein all week.'},
+  {w:10,cat:'Snack',e:'🍡',name:'Edamame & Sea Salt',cals:190,pro:18,carb:14,fat:8,time:'5 min',desc:'Most underrated high-protein snack. Complete amino acid profile.',ing:['2 cups edamame (frozen, in shell)','Sea salt','Optional: soy sauce, sesame oil'],steps:['Microwave edamame per package (usually 3-4 min).','Drain. Toss with sea salt.','Optional: drizzle soy sauce and sesame oil.'],tip:'Edamame is a complete protein — rare for a plant food. 18g protein per 2 cups. Keep frozen bags stocked.'},
+  // WEEK 11
+  {w:11,cat:'Breakfast',e:'🫙',name:'Overnight Protein Oats',cals:450,pro:36,carb:50,fat:10,time:'5 min prep night before',desc:'Zero morning effort. Make it before bed.',ing:['1 cup rolled oats','1 scoop vanilla protein','1 cup almond milk','1 tbsp chia seeds','1 tbsp honey','½ cup blueberries'],steps:['Mix all ingredients in a jar except berries.','Cover and refrigerate overnight.','In the morning, top with berries.'],tip:'Prep 5 jars Sunday night. Zero thought required Monday-Friday mornings.'},
+  {w:11,cat:'Lunch',e:'🍱',name:'Salmon & Quinoa Meal Prep',cals:530,pro:48,carb:44,fat:18,time:'25 min',desc:'Elevated meal prep. Tastes better than it should.',ing:['6oz salmon fillet','1 cup quinoa','1 cup roasted veggies (whatever you have)','Lemon, olive oil','Garlic, dill','Salt, pepper'],steps:['Season salmon with lemon, dill, garlic, salt.','Bake 400°F for 14 min.','Cook quinoa.','Roast veggies on same sheet last 10 min.','Pack into containers.'],tip:'This keeps well for 4 days. Salmon is even good cold.'},
+  {w:11,cat:'Dinner',e:'🥘',name:'Thai Peanut Chicken',cals:520,pro:46,carb:32,fat:20,time:'20 min',desc:'Bold, satisfying, different. Will not taste like diet food.',ing:['6oz chicken breast','2 tbsp natural peanut butter','2 tbsp soy sauce','1 tbsp lime juice','Garlic, ginger, sriracha','1 cup jasmine rice','Cucumber, cilantro, peanuts'],steps:['Whisk peanut butter, soy sauce, lime, garlic, ginger, sriracha + 2 tbsp warm water.','Slice chicken, sauté until cooked.','Toss chicken in peanut sauce.','Serve over rice with cucumber, cilantro, crushed peanuts.'],tip:'Natural peanut butter only — the added sugar in regular PB adds up. Same taste, better macros.'},
+  {w:11,cat:'Snack',e:'🥛',name:'Casein Pudding',cals:200,pro:25,carb:12,fat:4,time:'3 min + chill',desc:'Thick, creamy, slow-digesting protein. Best before bed.',ing:['1 scoop casein or slow-release protein','½ cup water or almond milk','Splash of almond milk to adjust','Cocoa powder or cinnamon'],steps:['Mix protein powder with very little liquid — less than usual.','Stir vigorously until thick like pudding.','Adjust consistency with small splashes of milk.','Refrigerate 10 min or eat immediately.'],tip:'Casein before bed is backed by research. If you only have whey, add Greek yogurt to slow the absorption.'},
+  // WEEK 12
+  {w:12,cat:'Breakfast',e:'🌮',name:'Breakfast Chicken Quesadilla',cals:480,pro:44,carb:36,fat:18,time:'12 min',desc:'Uses last night\'s leftover chicken. Creative and fast.',ing:['4oz leftover chicken breast, shredded','2 whole wheat tortillas','¼ cup reduced fat shredded cheese','2 eggs, scrambled','Salsa, Greek yogurt','Bell peppers, optional'],steps:['Scramble eggs. Set aside.','Layer tortilla: chicken, cheese, eggs, peppers.','Top with second tortilla.','Cook in dry pan 2-3 min per side until golden.','Cut and serve with salsa and Greek yogurt.'],tip:'Best use of leftover chicken. This takes less than 15 minutes and has almost 45g protein.'},
+  {w:12,cat:'Lunch',e:'🫕',name:'Protein-Packed White Bean Soup',cals:420,pro:36,carb:46,fat:10,time:'20 min',desc:'Filling, warm, surprisingly high protein for a soup.',ing:['1 can cannellini beans','4oz cooked chicken or turkey sausage','4 cups chicken broth','2 cups kale or spinach','Garlic, rosemary','Parmesan rind (optional)','Lemon juice'],steps:['Sauté garlic in olive oil.','Add broth, beans, sausage, rosemary (and parmesan rind if using).','Simmer 10 min.','Add kale last 2 min.','Finish with lemon juice and parmesan.'],tip:'White beans have 15g protein per cup. Combined with chicken sausage, this is a power soup.'},
+  {w:12,cat:'Dinner',e:'🥩',name:'Herb-Crusted Salmon with Asparagus',cals:480,pro:44,carb:12,fat:26,time:'25 min',desc:'Restaurant quality. Simple enough for a weeknight.',ing:['6oz salmon fillet','Fresh dill, parsley, chives','1 tbsp Dijon mustard','Lemon zest','1 bunch asparagus','Olive oil, salt, pepper'],steps:['Coat salmon with Dijon, then press herb mixture on top.','Drizzle asparagus with olive oil, salt.','Roast everything at 400°F for 14-16 min.'],tip:'Week 12 — you deserve a great meal. This one delivers.'},
+  {w:12,cat:'Snack',e:'🎯',name:'High-Protein Yogurt Parfait',cals:320,pro:30,carb:32,fat:8,time:'3 min',desc:'Layers of protein and flavor. Feels like a dessert.',ing:['1 cup plain Greek yogurt (2%)','½ scoop vanilla protein (stirred in)','¼ cup granola','½ cup mixed berries','1 tbsp almond butter','Honey drizzle'],steps:['Stir protein powder into Greek yogurt until smooth.','Layer: yogurt, granola, berries.','Top with almond butter and honey.'],tip:'Stirring protein into yogurt turns 17g protein into 27g with almost no change in taste or effort.'},
+  // WEEK 13
+  {w:13,cat:'Breakfast',e:'🏆',name:'Champion\'s Breakfast Plate',cals:520,pro:48,carb:36,fat:20,time:'15 min',desc:'Final week. You\'ve earned the best. Everything on one plate.',ing:['3 whole eggs + 2 egg whites','3oz smoked salmon','½ avocado','2 pieces sourdough toast','Capers, red onion','Lemon','Dill, salt, pepper'],steps:['Scramble eggs to your preference.','Toast sourdough.','Plate: eggs, smoked salmon, avocado.','Garnish with capers, red onion, lemon, dill.'],tip:'Week 13. Final stretch. Eat like a champion because you\'re becoming one, Jan.'},
+  {w:13,cat:'Lunch',e:'🏅',name:'Ultimate Protein Bowl',cals:560,pro:52,carb:44,fat:18,time:'20 min',desc:'Everything you\'ve learned this program in one bowl.',ing:['6oz grilled chicken','¼ cup quinoa','¼ cup brown rice','½ cup black beans','¼ avocado','Roasted veggies','Tahini, lemon, garlic (dressing)','Sriracha'],steps:['Cook grains. Grill chicken.','Roast veggies.','Mix tahini, lemon, garlic, water for dressing.','Layer everything in bowl.','Drizzle dressing, add sriracha.'],tip:'The best bowl you\'ve ever made. 52g protein. 90 days of discipline built this meal.'},
+  {w:13,cat:'Dinner',e:'🎉',name:'Celebration Shrimp Tacos',cals:490,pro:42,carb:44,fat:16,time:'20 min',desc:'Final week celebration dinner. You earned this.',ing:['6oz large shrimp','Corn tortillas (3-4 small)','Purple cabbage slaw','Mango salsa','Greek yogurt crema (yogurt + lime + cumin)','Chipotle seasoning','Lime, cilantro'],steps:['Season shrimp with chipotle, salt. Cook 2-3 min per side.','Shred cabbage, mix with lime juice for slaw.','Mix Greek yogurt with lime and cumin for crema.','Warm tortillas. Build tacos.'],tip:'Week 13, Day 91. You showed up. Now eat these tacos and plan your next 90 days.'},
+  {w:13,cat:'Snack',e:'💪',name:'Recovery Protein Shake (The Final One)',cals:280,pro:32,carb:28,fat:6,time:'2 min',desc:'Your last post-workout shake of the 90 days. Drink it proud.',ing:['1.5 scoops chocolate protein','1 banana','1 cup almond milk','1 tbsp honey','Ice','Optional: 1 tbsp creatine'],steps:['Blend everything.','Drink within 30 min of training.','Acknowledge how far you\'ve come, Jan.'],tip:'90 days. You did the thing. Most people talk about changing. You actually did it.'},
+];
+
+const STRETCH_LOWER=[
+  {e:'🧘',name:'90/90 Hip Stretch',t:'Hip Flexors · External Rotators · Lower Back',h:'Sit on floor, both legs bent at 90°. Front shin forward, back shin sideways. Sit tall, lean slightly forward. Both hips stay down.',d:'60 sec each side · 2 rounds',tip:'⭐ #1 for tight hips. Do this every day — even rest days. Difference in 2 weeks.'},
+  {e:'🛋️',name:'Couch Stretch',t:'Hip Flexors · Quad · Lower Back',h:'Kneel with back foot against wall, front foot in lunge. Drive hips forward, keep torso up.',d:'60 sec each side · 2 rounds',tip:'⚠️ If lower back arches a lot, squeeze back-leg glute — fixes it instantly.'},
+  {e:'🙏',name:'Child\'s Pose + Side Reach',t:'Lower Back · Lats · Hips',h:'Kneel, reach arms forward. Hips back to heels. Walk hands to one side and hold. Switch. Breathe deep into lower back.',d:'45 sec center · 30 sec each side'},
+  {e:'🔄',name:'Figure Four Glute Stretch',t:'Piriformis · Glutes · Lower Back',h:'Lie on back. Cross ankle over opposite knee. Pull both legs toward chest. Deep stretch in crossed-leg hip.',d:'60 sec each side · 2 rounds',tip:'⭐ Directly relieves lower back pain from tight glutes. Game changer.'},
+  {e:'🌍',name:'World\'s Greatest Stretch',t:'Hip Flexors · Thoracic · Groin · Hamstrings',h:'Deep lunge, same-side hand inside foot. Rotate opposite arm up to ceiling. Drop elbow to floor. Alternate sides.',d:'5 reps each side · slow',tip:'Do before every run. Full-body primer in 2 minutes.'},
+  {e:'🐱',name:'Cat-Cow',t:'Lower Back · Spine Mobility',h:'All fours. Inhale: drop belly, lift head/tailbone. Exhale: round spine, tuck chin. Very slow.',d:'10 slow reps · 2 rounds'},
+  {e:'🦵',name:'Standing Hamstring Stretch',t:'Hamstrings · Lower Back',h:'Hinge forward at hips, soft knees. Let head hang. Breathe and relax deeper each exhale.',d:'45 sec · 2 rounds'},
+];
+const STRETCH_UPPER=[
+  {e:'🚪',name:'Doorway Chest Stretch',t:'Pecs · Anterior Shoulder',h:'Forearms on doorframe, elbows 90°. Step through, lean forward. Keep chin tucked.',d:'45 sec · 3 rounds',tip:'Do after every Push day. Heavy pressing rounds shoulders over time. This is the antidote.'},
+  {e:'🪑',name:'Thoracic Extension',t:'Upper Back · Thoracic Spine · Posture',h:'Sit in chair, clasp hands behind head. Arch slowly over chair top. Or use a foam roller across upper back.',d:'30 sec per spinal level',tip:'⭐ Counteracts phone posture. Big win for upper back pain.'},
+  {e:'↔️',name:'Cross-Body Shoulder',t:'Posterior Deltoid · Rotator Cuff',h:'One arm across chest. Opposite forearm pulls it closer. Keep shoulder down. Breathe.',d:'45 sec each arm · 2 rounds'},
+  {e:'🧵',name:'Thread the Needle',t:'Upper Back · Thoracic Rotation',h:'All fours, slide one arm under body along floor, palm up. Let shoulder drop to floor.',d:'45 sec each side · 2 rounds'},
+  {e:'🙌',name:'Overhead Tricep / Lat',t:'Lats · Tricep · Side Body',h:'Raise one arm, bend elbow so hand reaches down your back. Other hand presses elbow deeper. Lean opposite side.',d:'40 sec each side'},
+  {e:'😮‍💨',name:'Neck Side Tilt',t:'Traps · Neck · Upper Shoulder',h:'Sit tall. Drop ear to shoulder. Same-side hand rests lightly on head — never pull.',d:'30 sec each side · 2 rounds',tip:'End of every session. Tight traps are stress + lifting. Stretch daily.'},
+  {e:'❄️',name:'Wall Angels',t:'Scapular Mobility · Posture',h:'Back flat on wall. Press lower back, shoulders, head into wall. Arms 90°. Raise overhead like snow angel, keeping all contact.',d:'10 slow reps · 3 rounds',tip:'⭐ Hard if upper back is stiff. Daily practice transforms posture in 4 weeks.'},
+];
+
+const QUICK_FOODS=[
+  {name:'Chicken Breast (6oz)',cal:185,pro:35,carb:0,fat:4},
+  {name:'Greek Yogurt (1 cup)',cal:130,pro:22,carb:9,fat:0},
+  {name:'Eggs (3 large)',cal:210,pro:18,carb:1,fat:14},
+  {name:'Protein Shake',cal:120,pro:25,carb:5,fat:2},
+  {name:'Salmon (5oz)',cal:235,pro:32,carb:0,fat:12},
+  {name:'Cottage Cheese (1 cup)',cal:200,pro:28,carb:8,fat:5},
+  {name:'Ground Turkey (4oz)',cal:170,pro:22,carb:0,fat:9},
+  {name:'Brown Rice (1 cup)',cal:215,pro:5,carb:45,fat:2},
+  {name:'Tuna Can (5oz)',cal:130,pro:30,carb:0,fat:1},
+  {name:'Shrimp (6oz)',cal:170,pro:32,carb:0,fat:2},
+];
+
+const PR_MOVES=['Smith Bench Press (lbs)','Smith Squat (lbs)','Romanian DL (lbs)','Weighted Dips (+lbs)','Weighted Pull-ups (+lbs)','Mile Run (min)','L-Sit Hold (sec)','Ab Wheel Reps','Longest Run (miles)'];
+const PHASES=[
+  {name:'Phase 1 — Build the Base',weeks:[1,2,3,4],desc:'Establish working weights. Build aerobic base. Consistency is the goal.'},
+  {name:'Phase 2 — Progressive Overload',weeks:[5,6,7,8,9],desc:'Add weight every session. Running distance climbs. Volume peaks.'},
+  {name:'Phase 3 — Peak & Cut',weeks:[10,11,12,13],desc:'Maximum intensity. Heaviest weights. Longest runs. This is the transformation.'},
+];
+const RCATS = ['All','Breakfast','Lunch','Dinner','Snack'];
+
+// ══ STATE ══
+let S=JSON.parse(localStorage.getItem('jan90v4')||'{}');
+if(!S.start)S.start=new Date().toDateString();
+if(!S.done)S.done=[];
+if(!S.wlog)S.wlog=[];
+if(!S.rlog)S.rlog=[];
+if(!S.prs)S.prs={};
+if(!S.food)S.food={};
+if(!S.chk)S.chk={};
+if(!S.chkDate)S.chkDate='';
+const save=()=>localStorage.setItem('jan90v4',JSON.stringify(S));
+const tod=new Date().toDateString();
+if(S.chkDate!==tod){S.chk={};S.chkDate=tod;save();}
+
+function daysSince(){return Math.floor((new Date()-new Date(S.start))/86400000);}
+function curWeek(){return Math.min(13,Math.floor(daysSince()/7)+1);}
+function curPhase(){const w=curWeek();return w<=4?0:w<=9?1:2;}
+function dayIdx(){return[6,0,1,2,3,4,5][new Date().getDay()];}
+function isDone(){return S.done.includes(tod);}
+function todayFood(){return S.food[tod]||[];}
+function todayMacros(){return todayFood().reduce((a,f)=>({cal:a.cal+(f.cal||0),pro:a.pro+(f.pro||0),carb:a.carb+(f.carb||0),fat:a.fat+(f.fat||0)}),{cal:0,pro:0,carb:0,fat:0});}
+
+let selWeek=curWeek();
+let selRCat='All';
+
+// NAV
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  ({home:rHome,schedule:rSched,today:rToday,food:rFood,recipes:rRecipes,progress:rProg,stretch:rStretch})[id]?.();
+}
+
+// HOME
+function rHome(){
+  const h=new Date().getHours();
+  document.getElementById('h-greet').innerHTML=`${h<12?'Good morning,':h<17?'Keep pushing,':'Evening grind,'}<br><span>Jan.</span>`;
+  document.getElementById('h-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const qi=Math.floor(daysSince())%QUOTES.length;
+  document.getElementById('h-quote').textContent=QUOTES[qi];
+  const done=S.done.length;
+  document.getElementById('h-done').textContent=done;
+  document.getElementById('h-left').textContent=Math.max(0,90-done);
+  document.getElementById('h-phase').textContent=curPhase()+1;
+  const dots=document.getElementById('h-dots');dots.innerHTML='';
+  const di=dayIdx();
+  for(let i=0;i<7;i++){const d=document.createElement('div');d.className='wd'+(i===di?' today':i===6?' rest':'');dots.appendChild(d);}
+  const prog=getProgram(curWeek());const day=prog[di];
+  document.getElementById('h-dtype').textContent=day.type.split('·')[0].trim();
+  document.getElementById('h-dname').textContent=day.name;
+  document.getElementById('h-dsub').textContent=day.type.split('·').slice(1,3).join('·').trim()||'Recovery';
+  document.getElementById('h-dexs').innerHTML=day.ex.slice(0,4).map(e=>`<div class="tsex">${e.n}<span>${e.s}</span></div>`).join('')+(day.ex.length>4?`<div class="tsex" style="color:var(--mt);">+${day.ex.length-4} more<span></span></div>`:'');
+  const m=todayMacros();
+  document.getElementById('h-macros').innerHTML=mb('Calories',m.cal,2300,'mfc')+mb('Protein',m.pro,155,'mfp')+mb('Carbs',m.carb,220,'mfcb')+mb('Fat',m.fat,70,'mff');
+}
+function mb(l,v,g,c){const p=Math.min(100,Math.round(v/g*100));return`<div class="mr"><div class="mr-top"><span>${l}</span><span>${v}${c==='mfc'?'':' g'} / ${g}${c==='mfc'?'':' g'}</span></div><div class="mr-track"><div class="mr-fill ${c}" style="width:${p}%"></div></div></div>`;}
+
+// SCHEDULE
+function rSched(){
+  const chips=document.getElementById('wchips');chips.innerHTML='';
+  const cw=curWeek();
+  for(let w=1;w<=13;w++){
+    const c=document.createElement('div');
+    c.className='wchip'+(w===selWeek?' active':'')+(w===cw&&w!==selWeek?' cur':'');
+    c.textContent=`Wk ${w}`+(w===cw?' ★':'');
+    c.onclick=()=>{selWeek=w;rSched();};
+    chips.appendChild(c);
+  }
+  const pi=selWeek<=4?0:selWeek<=9?1:2;
+  document.getElementById('pbar').innerHTML=`<span>${PHASES[pi].name}</span><div style="flex:1;height:1px;background:var(--rm);"></div>`;
+  const prog=getProgram(selWeek);
+  const dNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const isThisWeek=selWeek===cw,di=dayIdx();
+  const el=document.getElementById('sched-days');el.innerHTML='';
+  prog.forEach((day,i)=>{
+    const isToday=isThisWeek&&i===di;
+    const card=document.createElement('div');card.className='dcard';
+    if(isToday)card.style.borderLeft='3px solid var(--r)';
+    card.innerHTML=`
+      <div class="dc-top" onclick="toggleDC(this,${i},${selWeek})">
+        <div class="dc-num">${i+1}</div>
+        <div class="dc-mid"><div class="dc-name">${day.name}</div><div class="dc-sub">${dNames[i]} · ${day.type.split('·')[0].trim()}</div></div>
+        <div class="dc-right">${isToday?'<span class="dc-today">TODAY</span>':''}<span class="dc-arr" id="arr-${i}-${selWeek}">›</span></div>
+      </div>
+      <div class="dc-body" id="dcb-${i}-${selWeek}">
+        ${day.runDetail?`<div class="run-box"><div class="run-box-lbl">📋 Run Instructions — Week ${selWeek}</div><div class="run-box-txt">${day.runDetail}</div></div>`:''}
+        ${day.focus?`<div class="focus-box"><div class="focus-lbl">Week Focus</div><div class="focus-txt">${day.focus}</div></div>`:''}
+        ${day.ex.map(ex=>`<div class="dc-ex"><span class="dc-ex-name">${ex.n}</span><span class="dc-ex-sets">${ex.s}</span></div>${ex.note?`<div class="dc-note">${ex.note}</div>`:''}`).join('')}
+      </div>`;
+    el.appendChild(card);
+  });
+  setTimeout(()=>{const ac=chips.querySelector('.active');if(ac)ac.scrollIntoView({inline:'center',behavior:'smooth'});},80);
+}
+function toggleDC(el,i,w){
+  const body=document.getElementById(`dcb-${i}-${w}`);
+  const arr=document.getElementById(`arr-${i}-${w}`);
+  body.classList.toggle('open');
+  arr.textContent=body.classList.contains('open')?'‹':'›';
+}
+
+// TODAY
+function rToday(){
+  const w=curWeek(),di=dayIdx();
+  const prog=getProgram(w);const day=prog[di];
+  const done=S.done.length,pct=Math.round(done/90*100);
+  document.getElementById('t-name').textContent=day.name;
+  document.getElementById('t-sub').textContent=day.type;
+  document.getElementById('t-badge').textContent=PHASES[curPhase()].name.split('—')[0].trim()+' · Wk '+w;
+  document.getElementById('t-plbl').textContent=`Day ${done+1} of 90`;
+  document.getElementById('t-pfill').style.width=pct+'%';
+  document.getElementById('t-ppct').textContent=pct+'%';
+  const list=document.getElementById('t-exlist');list.innerHTML='';
+  day.ex.forEach((ex,i)=>{
+    const ck=S.chk[i];
+    const div=document.createElement('div');div.className='tex'+(ck?' chk':'');
+    div.onclick=()=>{S.chk[i]=!S.chk[i];save();rToday();rHome();};
+    div.innerHTML=`<div class="tex-circle">${ck?'✓':''}</div><span class="tex-nm">${ex.n}</span><span class="tex-sets">${ex.s}</span>`;
+    list.appendChild(div);
+    if(ex.note){const n=document.createElement('div');n.className='tex-note';n.textContent=ex.note;list.appendChild(n);}
+  });
+  const rd=document.getElementById('t-rundetail');
+  if(day.runDetail){rd.style.display='block';document.getElementById('t-runtext').textContent=day.runDetail;}
+  else{rd.style.display='none';}
+  const btn=document.getElementById('t-cbtn');
+  if(isDone()){btn.textContent='✓ DONE — SEE YOU TOMORROW, JAN';btn.className='btn btn-g';}
+  else{btn.textContent='MARK DAY COMPLETE';btn.className='btn btn-r';}
+}
+function completeToday(){
+  if(!isDone()){S.done.push(tod);save();}
+  rToday();rHome();rProg();
+}
+
+// FOOD
+function rFood(){
+  document.getElementById('f-datelbl').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const m=todayMacros();
+  const C=2*Math.PI*30;
+  const upd=(id,v,g)=>{const el=document.getElementById(id);if(el)el.setAttribute('stroke-dasharray',`${Math.min(1,v/g)*C} ${C}`);};
+  upd('rc-c',m.cal,2300);upd('rc-p',m.pro,155);upd('rc-cb',m.carb,220);upd('rc-f',m.fat,70);
+  document.getElementById('rv-c').textContent=m.cal;
+  document.getElementById('rv-p').textContent=m.pro+'g';
+  document.getElementById('rv-cb').textContent=m.carb+'g';
+  document.getElementById('rv-f').textContent=m.fat+'g';
+  const foods=todayFood();
+  document.getElementById('food-log').innerHTML=foods.length===0?'<div style="text-align:center;padding:24px 0;color:var(--mt);font-size:13px;">Nothing logged yet today.</div>':
+    foods.map((f,i)=>`<div class="food-entry"><div class="fe-l"><h4>${f.name}</h4><div class="fe-chips"><span class="fe-chip" style="background:var(--bs);color:var(--b);">P ${f.pro}g</span><span class="fe-chip" style="background:var(--os);color:var(--o);">C ${f.carb}g</span><span class="fe-chip" style="background:var(--gs);color:var(--g);">F ${f.fat}g</span></div></div><div style="display:flex;align-items:center;"><div class="fe-cal">${f.cal}</div><button class="fe-del" onclick="delFood(${i})">✕</button></div></div>`).join('');
+  document.getElementById('quick-list').innerHTML=QUICK_FOODS.map((f,i)=>`<div class="qi" onclick="quickAdd(${i})"><div class="fe-l"><h4>${f.name}</h4><div class="fe-chips"><span class="fe-chip" style="background:var(--bs);color:var(--b);">P ${f.pro}g</span><span class="fe-chip" style="background:var(--os);color:var(--o);">${f.cal} cal</span></div></div><div class="qadd">+</div></div>`).join('');
+}
+function addFood(){
+  const name=document.getElementById('f-name').value.trim();if(!name)return;
+  const f={name,cal:+document.getElementById('f-cal').value||0,pro:+document.getElementById('f-pro').value||0,carb:+document.getElementById('f-carb').value||0,fat:+document.getElementById('f-fat').value||0};
+  if(!S.food[tod])S.food[tod]=[];S.food[tod].push(f);save();
+  ['f-name','f-cal','f-pro','f-carb','f-fat'].forEach(id=>document.getElementById(id).value='');
+  rFood();rHome();
+}
+function quickAdd(i){if(!S.food[tod])S.food[tod]=[];S.food[tod].push(QUICK_FOODS[i]);save();rFood();rHome();}
+function delFood(i){S.food[tod].splice(i,1);save();rFood();rHome();}
+
+// RECIPES
+function rRecipes(){
+  const w=curWeek();
+  document.getElementById('recipe-week-num').textContent=w;
+  const weekRecipes=ALL_RECIPES.filter(r=>r.w===w);
+  // Build cat tabs for this week's available cats
+  const availCats=['All',...new Set(weekRecipes.map(r=>r.cat))];
+  document.getElementById('rcats').innerHTML=availCats.map(c=>`<div class="rcat${selRCat===c?' active':''}" onclick="setRCat('${c}')">${c}</div>`).join('');
+  const filtered=selRCat==='All'?weekRecipes:weekRecipes.filter(r=>r.cat===selRCat);
+  document.getElementById('rgrid').innerHTML=filtered.map((r,i)=>{
+    const ri=ALL_RECIPES.indexOf(r);
+    return`<div class="rcard" onclick="openRecipe(${ri})">
+      <div class="rcard-img">${r.e}</div>
+      <div class="rcard-body">
+        <span class="week-badge">Week ${r.w} Recipe</span>
+        <div class="rcard-name">${r.name}</div>
+        <div class="rcard-macros">
+          <span class="rcard-macro" style="background:var(--rs);color:var(--r);">${r.cals} cal</span>
+          <span class="rcard-macro" style="background:var(--bs);color:var(--b);">P ${r.pro}g</span>
+          <span class="rcard-macro" style="background:var(--os);color:var(--o);">C ${r.carb}g</span>
+          <span class="rcard-macro" style="background:var(--gs);color:var(--g);">F ${r.fat}g</span>
+          <span class="rcard-macro" style="background:var(--bg);color:var(--mt);">⏱ ${r.time}</span>
+        </div>
+        <div class="rcard-desc">${r.desc}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function setRCat(c){selRCat=c;rRecipes();}
+function openRecipe(i){
+  const r=ALL_RECIPES[i];
+  document.getElementById('rm-t').textContent=r.name;
+  document.getElementById('rm-body').innerHTML=`
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+      <span class="pill" style="background:var(--rs);color:var(--r);">${r.cals} cal</span>
+      <span class="pill" style="background:var(--bs);color:var(--b);">P: ${r.pro}g</span>
+      <span class="pill" style="background:var(--os);color:var(--o);">C: ${r.carb}g</span>
+      <span class="pill" style="background:var(--gs);color:var(--g);">F: ${r.fat}g</span>
+    </div>
+    <div style="font-size:13px;color:var(--mt);margin-bottom:16px;line-height:1.6;">${r.desc} · ⏱ ${r.time}</div>
+    <div class="rsec-title">Ingredients</div>
+    <div>${r.ing.map(ing=>`<div class="ing-item"><div class="ing-dot"></div><span>${ing}</span></div>`).join('')}</div>
+    <div class="rsec-title">Instructions</div>
+    <div>${r.steps.map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><div class="step-txt">${s}</div></div>`).join('')}</div>
+    ${r.tip?`<div class="rtip"><p>💡 <strong>Jan's Tip:</strong> ${r.tip}</p></div>`:''}
+    <div style="height:10px;"></div>
+  `;
+  document.getElementById('recipe-modal').classList.add('open');
+}
+
+// STRETCH
+function rStretch(){
+  const rp=(id,data)=>{document.getElementById('sp-'+id).innerHTML=data.map(s=>`<div class="scard"><div class="semoji">${s.e}</div><div class="sbody"><div class="sname">${s.name}</div><div class="stgt">${s.t}</div><div class="show">${s.h}</div><span class="sdur">${s.d}</span>${s.tip?`<div class="stip">${s.tip}</div>`:''}</div></div>`).join('');};
+  rp('lower',STRETCH_LOWER);rp('upper',STRETCH_UPPER);
+}
+function switchS(id,btn){
+  document.querySelectorAll('.spanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sp-'+id).classList.add('active');btn.classList.add('active');
+}
+
+// PROGRESS
+function rProg(){
+  const done=S.done.length;
+  document.getElementById('ps-tot').textContent=done;
+  const wa=new Date();wa.setDate(wa.getDate()-7);
+  document.getElementById('ps-wk').textContent=S.done.filter(d=>new Date(d)>=wa).length;
+  if(S.wlog.length>0){const f=S.wlog[0].v,l=S.wlog[S.wlog.length-1].v;document.getElementById('ps-sw').textContent=f;document.getElementById('ps-lost').textContent=Math.max(0,f-l).toFixed(1);}
+  const chart=document.getElementById('wchart');
+  const logs=S.wlog.slice(-10);
+  if(logs.length>1){const mn=Math.min(...logs.map(l=>l.v))-2,mx=Math.max(...logs.map(l=>l.v))+2;chart.innerHTML=logs.map(l=>`<div class="cbar" data-v="${l.v}" style="height:${Math.max(4,((l.v-mn)/(mx-mn))*72)}px"></div>`).join('');}
+  else{chart.innerHTML='<div style="color:var(--mt);font-size:12px;padding:10px 0;">Log weight to see chart</div>';}
+  document.getElementById('rlog').innerHTML=S.rlog.length===0?'<div style="color:var(--mt);font-size:12px;padding:12px 0;">No runs logged yet.</div>':
+    [...S.rlog].reverse().slice(0,4).map(r=>`<div class="re"><div><div style="font-size:13px;font-weight:600;">${r.mi} mi · ${r.tp}</div><div style="font-size:10px;color:var(--mt);font-family:'Space Mono',monospace;">${r.date}</div></div><div class="re-v">${r.mn}m</div></div>`).join('');
+  document.getElementById('pr-disp').innerHTML=PR_MOVES.map(m=>`<div class="pr-item"><div><div class="pri-n">${m.split('(')[0].trim()}</div><div class="pri-s">${m.match(/\(([^)]+)\)/)?.[1]||''}</div></div><div class="pri-v">${S.prs[m]||'—'}</div></div>`).join('');
+}
+function logWeight(){const v=parseFloat(document.getElementById('w-inp').value);if(!v)return;S.wlog.push({v,d:new Date().toLocaleDateString()});save();document.getElementById('w-inp').value='';rProg();rHome();}
+function logRun(){const mi=document.getElementById('r-mi').value,mn=document.getElementById('r-mn').value,tp=document.getElementById('r-tp').value;if(!mi||!mn)return;S.rlog.push({mi,mn,tp,date:new Date().toLocaleDateString()});save();document.getElementById('r-mi').value='';document.getElementById('r-mn').value='';rProg();}
+function openPRModal(){
+  document.getElementById('pr-mbody').innerHTML=PR_MOVES.map(m=>`<div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">${m}</div><div style="display:grid;grid-template-columns:1fr auto;gap:8px;"><input class="inp" type="text" placeholder="Current: ${S.prs[m]||'not set'}" id="pri-${m.replace(/\W/g,'_')}"><button class="btn btn-r" style="width:auto;padding:11px 16px;font-size:12px;" onclick="savePR('${m}')">SAVE</button></div></div>`).join('');
+  document.getElementById('pr-modal').classList.add('open');
+}
+function savePR(m){const v=document.getElementById('pri-'+m.replace(/\W/g,'_')).value;if(!v)return;S.prs[m]=v;save();rProg();}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+// INIT
+selWeek=curWeek();
+rHome();rStretch();
+</script>
+</body>
+</html>
